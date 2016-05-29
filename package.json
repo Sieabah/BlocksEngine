@@ -1,0 +1,13 @@
+{
+  "name": "get-blocks",
+  "version": "1.0.0",
+  "description": "Dumb game",
+  "author": "Sieabah",
+  "license": "",
+  "dependencies": {},
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-typescript": "^2.13.5",
+    "gulp-watch": "^4.3.6"
+  }
+}
