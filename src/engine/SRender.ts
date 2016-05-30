@@ -1,64 +1,45 @@
 /// <reference path="SMath.ts" />
-
-var HSVtoRGB = function (h, s, v) {
-
-    var out = {
-        r: 0,
-        g: 0,
-        b: 0
-    };
-
-    var r, g, b;
-    var i = Math.floor(h * 6);
-    var f = h * 6 - i;
-    var p = v * (1 - s);
-    var q = v * (1 - f * s);
-    var t = v * (1 - (1 - f) * s);
-
-    switch (i % 6)
-    {
-        case 0:
-            r = v;
-            g = t;
-            b = p;
-            break;
-        case 1:
-            r = q;
-            g = v;
-            b = p;
-            break;
-        case 2:
-            r = p;
-            g = v;
-            b = t;
-            break;
-        case 3:
-            r = p;
-            g = q;
-            b = v;
-            break;
-        case 4:
-            r = t;
-            g = p;
-            b = v;
-            break;
-        case 5:
-            r = v;
-            g = p;
-            b = q;
-            break;
-    }
-
-    out.r = Math.floor(r * 255);
-    out.g = Math.floor(g * 255);
-    out.b = Math.floor(b * 255);
-
-    return out;
-};
+/// <reference path="Util/Color.ts" />
 
 interface Renderable {
     draw(canvas: Board): void;
     bounds: Array<Point>;
+    position: Point;
+    rotation: Rotator;
+    scale: number;
+    color: { r: number, g: number, b: number, a: number };
+}
+
+class Actor implements Renderable{
+    constructor(){
+        this.bounds = [];
+        this.color = {
+            r: 0, g: 0, b: 0, a: 1
+        };
+        this.rotation = new Rotator();
+        this.position = new Point();
+        this.scale = 1;
+    }
+
+    public setPosition(x: number, y: number){
+        this.position.x = x;
+        this.position.y = y;
+    }
+
+    draw(board: Board): void{
+        let bounds: Array<Point> = [];
+
+        for(var point of this.bounds){
+            let scaledPoint: Point = new Point(point.x, point.y);
+            scaledPoint.x = scaledPoint.x * this.scale;
+            scaledPoint.y = scaledPoint.y * this.scale;
+
+            bounds.push(new Point(this.position.x+scaledPoint.x, this.position.y+scaledPoint.y));
+        }
+
+        board.draw(bounds, this);
+    }
+    bounds; position; rotation; scale; color;
 }
 
 class Board {
@@ -73,26 +54,94 @@ class Board {
         backdrop.style.width = String(window.innerWidth)+'px';
         backdrop.style.height = String(window.innerHeight)+'px';
         backdrop.style.backgroundColor = 'rgba(0,0,0,0.1)';
-        this.position(backdrop, '-1');
+        Board.position(backdrop, '-1');
 
-        let board = document.createElement('canvas');
-        board.width = window.innerWidth;
-        board.height = window.innerHeight;
+        let canvas1 = document.createElement('canvas');
+        canvas1.width = window.innerWidth;
+        canvas1.height = window.innerHeight;
 
-        this.position(board);
+        Board.position(canvas1);
+
+        let canvas2 = document.createElement('canvas');
+        canvas2.width = window.innerWidth;
+        canvas2.height = window.innerHeight;
+
+        Board.position(canvas2);
+        canvas2.style.display = 'none';
 
         body.innerHTML = '';
-        body.appendChild(board);
+        body.appendChild(canvas1);
+        body.appendChild(canvas2);
         body.appendChild(backdrop);
-        this.pieces['board'] = board;
+        this.pieces['canvas'] = {
+            front: canvas1,
+            back: canvas2
+        };
         this.pieces['backdrop'] = backdrop;
     }
 
-    private position (element: HTMLElement, zindex?: string): void{
+    private static position (element: HTMLElement, zindex?: string): void{
         element.style.position = 'absolute';
         element.style.zIndex = zindex ? zindex : '1000';
         element.style.top = '0';
         element.style.left = '0';
+    }
+
+    private getBackdrop(): HTMLElement{
+        return this.pieces['backdrop'];
+    }
+
+    private getCanvas(chain?: string): HTMLCanvasElement{
+        if(chain == 'front')
+            return this.pieces['canvas']['front'];
+
+        return this.pieces['canvas']['back'];
+    }
+
+    private setCanvas(chain: string, canvas: HTMLCanvasElement): void{
+        this.pieces['canvas'][chain] = canvas;
+    }
+
+    public draw(points: Array<Point>, actor?: Renderable){
+        let ctx = this.getCanvas().getContext('2d');
+
+        if(actor)
+            ctx.fillStyle = Color.colorStr(actor.color);
+
+        ctx.beginPath();
+        ctx.moveTo(points[0].x, points[0].y);
+        points.shift();
+
+        for(var point of points){
+            ctx.lineTo(point.x, point.y);
+        }
+
+        ctx.closePath();
+
+        ctx.fill();
+    }
+
+    private clear(canvas: HTMLCanvasElement){
+        canvas.getContext('2d').clearRect(0, 0, canvas.width, canvas.height);
+    }
+
+    public clearFront(){
+        this.clear(this.getCanvas('front'));
+    }
+
+    public clearBack(){
+        this.clear(this.getCanvas('back'));
+    }
+
+    public swap(){
+        let back = this.getCanvas('back');
+        let front = this.getCanvas('front');
+
+        back.style.display = 'block';
+        front.style.display = 'none';
+
+        this.setCanvas('front', back);
+        this.setCanvas('back', front);
     }
 
     public setBackdrop(r: number, g: number, b: number){
@@ -100,23 +149,46 @@ class Board {
 
         let backdrop: HTMLElement = this.pieces['backdrop'];
 
-        backdrop.style.backgroundColor = 'rgba('+r+','+g+','+b+',1)';
+        this.getBackdrop().style.backgroundColor = 'rgba('+r+','+g+','+b+',0.2)';
     }
 }
 
 class SRender {
-    board: Board;
+    private board: Board;
+    private queue: Array<Actor>;
+
     constructor(){
         console.log('SRender');
         this.board = new Board();
+        this.queue = [];
+    }
+
+    public addActor(actor: Actor): number{
+        this.queue.push(actor);
+        return this.queue.length-1;
+    }
+
+    private getBoard(): Board{
+        return this.board;
+    }
+
+    public getActor(actor: number): Actor{
+        return this.queue[actor];
     }
 
     update(){
-        console.log('SRender.update');
         let offset = Math.floor(Date.now()/50);
         offset = Math.abs(Math.sin(offset*(Math.PI/180)));
-        let color = HSVtoRGB(offset,1,1);
-        console.log(offset, color);
+        let color = Color.HSVtoRGB(offset,1,1);
         this.board.setBackdrop(color.r, color.g, color.b);
+
+
+        this.board.clearBack();
+
+        for(var actor of this.queue){
+            actor.draw(this.getBoard())
+        }
+
+        this.board.swap();
     }
 }

@@ -1,6 +1,7 @@
 /// <reference path="Repeater.ts" />
 
 /// <reference path="SEntity.ts" />
+/// <reference path="Util/Mouse.ts" />
 
 /// <reference path="SRender.ts" />
 /// <reference path="SAudio.ts" />
@@ -26,11 +27,17 @@ class Core {
         this.audio = new SAudio();
 
         this.entities = [];
+
+        new Mouse();
     }
 
     public getRenderer(){ return this.renderer; }
     public getPhysics(){ return this.physics; }
     public getAudio(){ return this.audio; }
+
+    public getActor(actor: number): Actor{
+        return this.getRenderer().getActor(actor);
+    }
 
     public static defaultConfig(): Object{
         return {
