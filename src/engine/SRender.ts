@@ -29,7 +29,7 @@ class Actor implements Renderable{
     draw(board: Board): void{
         let bounds: Array<Point> = [];
 
-        for(var point of this.bounds){
+        for(let point of this.bounds){
             let scaledPoint: Point = new Point(point.x, point.y);
             scaledPoint.x = scaledPoint.x * this.scale;
             scaledPoint.y = scaledPoint.y * this.scale;
@@ -43,6 +43,19 @@ class Actor implements Renderable{
 }
 
 class Board {
+    public resize(){
+        this.pieces['backdrop'].style.width = String(window.innerWidth)+'px';
+        this.pieces['backdrop'].style.height = String(window.innerHeight)+'px';
+
+        for(let canvas in this.pieces['canvas']){
+            if(!this.pieces['canvas'].hasOwnProperty(canvas)) continue;
+            let element = this.pieces['canvas'][canvas];
+
+            element.width = window.innerWidth;
+            element.height = window.innerHeight;
+        }
+    }
+
     private pieces: Object = {};
     constructor(){
         let bodies = document.getElementsByTagName('body');
@@ -54,17 +67,13 @@ class Board {
         backdrop.style.width = String(window.innerWidth)+'px';
         backdrop.style.height = String(window.innerHeight)+'px';
         backdrop.style.backgroundColor = 'rgba(0,0,0,0.1)';
-        Board.position(backdrop, '-1');
+        Board.position(backdrop, '0');
 
         let canvas1 = document.createElement('canvas');
-        canvas1.width = window.innerWidth;
-        canvas1.height = window.innerHeight;
 
         Board.position(canvas1);
 
         let canvas2 = document.createElement('canvas');
-        canvas2.width = window.innerWidth;
-        canvas2.height = window.innerHeight;
 
         Board.position(canvas2);
         canvas2.style.display = 'none';
@@ -78,6 +87,8 @@ class Board {
             back: canvas2
         };
         this.pieces['backdrop'] = backdrop;
+
+        this.resize();
     }
 
     private static position (element: HTMLElement, zindex?: string): void{
@@ -102,8 +113,12 @@ class Board {
         this.pieces['canvas'][chain] = canvas;
     }
 
+    private getContext(){
+        return this.getCanvas().getContext('2d');
+    }
+
     public draw(points: Array<Point>, actor?: Renderable){
-        let ctx = this.getCanvas().getContext('2d');
+        let ctx = this.getContext();
 
         if(actor)
             ctx.fillStyle = Color.colorStr(actor.color);
@@ -112,7 +127,7 @@ class Board {
         ctx.moveTo(points[0].x, points[0].y);
         points.shift();
 
-        for(var point of points){
+        for(let point of points){
             ctx.lineTo(point.x, point.y);
         }
 
@@ -121,16 +136,24 @@ class Board {
         ctx.fill();
     }
 
-    private clear(canvas: HTMLCanvasElement){
+    public text(message:string = '', x: number = 0, y: number = 0){
+        let ctx = this.getContext();
+
+        ctx.font = '48x serif';
+        ctx.fillText(message, x, y);
+
+    }
+
+    private static clear(canvas: HTMLCanvasElement){
         canvas.getContext('2d').clearRect(0, 0, canvas.width, canvas.height);
     }
 
     public clearFront(){
-        this.clear(this.getCanvas('front'));
+        Board.clear(this.getCanvas('front'));
     }
 
     public clearBack(){
-        this.clear(this.getCanvas('back'));
+        Board.clear(this.getCanvas('back'));
     }
 
     public swap(){
@@ -176,7 +199,11 @@ class SRender {
         return this.queue[actor];
     }
 
-    update(){
+    public resize(){
+        this.getBoard().resize();
+    }
+
+    update(dtime: number){
         let offset = Math.floor(Date.now()/50);
         offset = Math.abs(Math.sin(offset*(Math.PI/180)));
         let color = Color.HSVtoRGB(offset,1,1);
@@ -185,7 +212,12 @@ class SRender {
 
         this.board.clearBack();
 
-        for(var actor of this.queue){
+        let frames = Math.round(1000/dtime);
+
+        this.getBoard().text(String(dtime)+' ms', 10,20);
+        this.getBoard().text(String(frames)+' fps', 10, 40);
+
+        for(let actor of this.queue){
             actor.draw(this.getBoard())
         }
 

@@ -2,12 +2,11 @@
 class Repeater {
     public static repeaters = {};
     constructor(){}
-    public static start(name: string, func: Function, loopRate: Function, autostart?: boolean): string{
+    public static start(name: string, func: Function, autostart?: boolean): string{
         name = name+Date.now()+''+String(Math.random()).replace('.','');
 
         Repeater.repeaters[name] = {
             func: func,
-            rate: loopRate(),
             canLoop: true,
             lastRun: null,
             endFunc: function(){}
@@ -59,14 +58,17 @@ class Repeater {
         if(Repeater.getRepeater(name) == undefined) return;
 
         if(Repeater.getRepeater(name).canLoop) {
-            setTimeout(function () {
-                var now = Date.now();
-                var dtime = now - Repeater.getRepeater(name).lastRun;
-                Repeater.getRepeater(name).lastRun = now;
+            window.requestAnimationFrame(() => {
+                let repeater = Repeater.getRepeater(name);
 
-                Repeater.getRepeater(name).func(dtime);
-                Repeater.repeat(name);
-            }, Repeater.getRepeater(name).rate);
+                let now = Date.now();
+                let dtime = now - repeater.lastRun;
+
+                repeater.lastRun = now;
+                repeater.func(dtime);
+
+                this.repeat(name);
+            });
         } else
             Repeater.getRepeater(name).endFunc();
     }

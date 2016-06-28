@@ -8,14 +8,14 @@ class Game {
     private actors: Array<number>;
     constructor(){
         this.name = 'GetBlocks';
-        this.engine = new Core({
-            fps: 60
-        });
+        this.engine = new Core();
         this.actors = [];
     }
 
     getName():string{ return this.name; }
-
+    resize():void{
+        this.engine.getRenderer().resize();
+    }
     run(){
         let actor: Actor = new Actor();
         actor.setPosition(window.innerWidth/2, window.innerHeight/2);

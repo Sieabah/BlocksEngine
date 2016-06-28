@@ -41,12 +41,11 @@ class Core {
 
     public static defaultConfig(): Object{
         return {
-            fps: 30
         }
     }
 
     public config(conf: Object): void{
-        for(var key in conf){
+        for(let key in conf){
             if(!conf.hasOwnProperty(key)) continue;
 
             this.setConfValue(key, conf[key]);
@@ -66,20 +65,20 @@ class Core {
         return this.conf[key];
     }
 
-    private repeater(func: Function, rate: number): string{
-        return Repeater.start('core', func, function(){ return 1000/rate;}, true);
+    private static repeater(func: Function): string{
+        return Repeater.start('core', func, true);
     }
 
     private loop(game: Game, engine: Core): Function{
         return function(dtime: number){
             game.loop(dtime);
-            engine.getRenderer().update();
+            engine.getRenderer().update(dtime);
         }
     }
 
     run(game: Game): void{
         console.log('Core.run');
-        this.name = this.repeater(this.loop(game, this), this.getConfValue('fps'));
-        console.log(this.name);
+        this.name = Core.repeater(this.loop(game, this));
+        window.onresize = () => {this.getRenderer().resize();};
     }
 }
