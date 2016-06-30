@@ -3,7 +3,7 @@
 /// <reference path="SEntity.ts" />
 /// <reference path="Util/Mouse.ts" />
 
-/// <reference path="SRender.ts" />
+/// <reference path="Rendering/SRender.ts" />
 /// <reference path="SAudio.ts" />
 /// <reference path="SPhysics.ts" />
 
@@ -29,6 +29,8 @@ class Core {
         this.entities = [];
 
         new Mouse();
+
+        window.onresize = () => {this.getRenderer().resize();};
     }
 
     public getRenderer(){ return this.renderer; }
@@ -79,6 +81,5 @@ class Core {
     run(game: Game): void{
         console.log('Core.run');
         this.name = Core.repeater(this.loop(game, this));
-        window.onresize = () => {this.getRenderer().resize();};
     }
 }

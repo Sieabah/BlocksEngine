@@ -1,46 +1,6 @@
-/// <reference path="SMath.ts" />
-/// <reference path="Util/Color.ts" />
-
-interface Renderable {
-    draw(canvas: Board): void;
-    bounds: Array<Point>;
-    position: Point;
-    rotation: Rotator;
-    scale: number;
-    color: { r: number, g: number, b: number, a: number };
-}
-
-class Actor implements Renderable{
-    constructor(){
-        this.bounds = [];
-        this.color = {
-            r: 0, g: 0, b: 0, a: 1
-        };
-        this.rotation = new Rotator();
-        this.position = new Point();
-        this.scale = 1;
-    }
-
-    public setPosition(x: number, y: number){
-        this.position.x = x;
-        this.position.y = y;
-    }
-
-    draw(board: Board): void{
-        let bounds: Array<Point> = [];
-
-        for(let point of this.bounds){
-            let scaledPoint: Point = new Point(point.x, point.y);
-            scaledPoint.x = scaledPoint.x * this.scale;
-            scaledPoint.y = scaledPoint.y * this.scale;
-
-            bounds.push(new Point(this.position.x+scaledPoint.x, this.position.y+scaledPoint.y));
-        }
-
-        board.draw(bounds, this);
-    }
-    bounds; position; rotation; scale; color;
-}
+/// <reference path="Renderable.ts" />
+/// <reference path="../SMath.ts" />
+/// <reference path="../Util/Color.ts" />
 
 class Board {
     public resize(){
@@ -136,12 +96,10 @@ class Board {
         ctx.fill();
     }
 
-    public text(message:string = '', x: number = 0, y: number = 0){
+    public text(message:string = '', x: number = 0, y: number = 0, font:string = '48x serif'){
         let ctx = this.getContext();
-
-        ctx.font = '48x serif';
+        ctx.font = font;
         ctx.fillText(message, x, y);
-
     }
 
     private static clear(canvas: HTMLCanvasElement){
@@ -173,54 +131,5 @@ class Board {
         let backdrop: HTMLElement = this.pieces['backdrop'];
 
         this.getBackdrop().style.backgroundColor = 'rgba('+r+','+g+','+b+',0.2)';
-    }
-}
-
-class SRender {
-    private board: Board;
-    private queue: Array<Actor>;
-
-    constructor(){
-        console.log('SRender');
-        this.board = new Board();
-        this.queue = [];
-    }
-
-    public addActor(actor: Actor): number{
-        this.queue.push(actor);
-        return this.queue.length-1;
-    }
-
-    private getBoard(): Board{
-        return this.board;
-    }
-
-    public getActor(actor: number): Actor{
-        return this.queue[actor];
-    }
-
-    public resize(){
-        this.getBoard().resize();
-    }
-
-    update(dtime: number){
-        let offset = Math.floor(Date.now()/50);
-        offset = Math.abs(Math.sin(offset*(Math.PI/180)));
-        let color = Color.HSVtoRGB(offset,1,1);
-        this.board.setBackdrop(color.r, color.g, color.b);
-
-
-        this.board.clearBack();
-
-        let frames = Math.round(1000/dtime);
-
-        this.getBoard().text(String(dtime)+' ms', 10,20);
-        this.getBoard().text(String(frames)+' fps', 10, 40);
-
-        for(let actor of this.queue){
-            actor.draw(this.getBoard())
-        }
-
-        this.board.swap();
     }
 }

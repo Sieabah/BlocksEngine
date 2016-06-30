@@ -1,4 +1,18 @@
 
+class Colour {
+    public r;
+    public g;
+    public b;
+    public a;
+
+    constructor(r: number = 0, g: number = 0, b: number = 0, a: number = 1){
+        this.r = r;
+        this.g = g;
+        this.b = b;
+        this.a = a;
+    }
+}
+
 class Color {
     public static colorStr(color: {r: number, g: number, b: number, a:number}){
         return 'rgba('+color.r+','+color.g+','+color.b+','+color.a+')';
