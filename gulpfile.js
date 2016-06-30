@@ -1,5 +1,6 @@
 var gulp = require('gulp'),
     ts = require('gulp-typescript'),
+    uglify = require('gulp-uglify'),
     watch = require('gulp-watch');
 
 gulp.task('game', function(){
@@ -9,6 +10,12 @@ gulp.task('game', function(){
             out: 'game.js'
         }))
         .pipe(gulp.dest('built/local'));
+});
+
+gulp.task('prod', ['game'], function () {
+    return gulp.src('built/local/game.js')
+        .pipe(uglify())
+        .pipe(gulp.dest('built/prod'));
 });
 
 gulp.task('default', ['game'], function () {});

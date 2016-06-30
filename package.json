@@ -8,6 +8,7 @@
   "devDependencies": {
     "gulp": "^3.9.1",
     "gulp-typescript": "^2.13.5",
+    "gulp-uglify": "^1.5.4",
     "gulp-watch": "^4.3.6"
   }
 }
