@@ -1,5 +1,6 @@
 /// <reference path="Renderable.ts" />
-/// <reference path="../SMath.ts" />
+/// <reference path="../Math/SMath.ts" />
+/// <reference path="../Math/Tri.ts" />
 /// <reference path="../Util/Color.ts" />
 
 class Board {
@@ -77,29 +78,68 @@ class Board {
         return this.getCanvas().getContext('2d');
     }
 
-    public draw(points: Array<Point>, actor?: Renderable){
+    private drawTri(tri: Tri, color?: Colour){
         let ctx = this.getContext();
+        let origColor = ctx.fillStyle;
 
-        if(actor)
-            ctx.fillStyle = Color.colorStr(actor.color);
+        if(color == undefined)
+            color = new Colour();
+
+        ctx.fillStyle = Color.colorStr(color);
 
         ctx.beginPath();
-        ctx.moveTo(points[0].x, points[0].y);
-        points.shift();
+
+        let points = tri.points();
+        let tmp = points.shift();
+        ctx.moveTo(tmp.x, tmp.y);
+
+        /*let textColor = new Colour(255,255,255,1);
+        let x = SMath.truncate(tmp.x, 1);
+        let y = SMath.truncate(tmp.y, 1);
+        this.text(x+','+y, x, y, '10px serif', textColor);*/
 
         for(let point of points){
+            /*let x = SMath.truncate(point.x, 1);
+            let y = SMath.truncate(point.y, 1);
+            this.text(x+','+y, x, y, '10px serif', textColor);*/
             ctx.lineTo(point.x, point.y);
         }
 
         ctx.closePath();
-
         ctx.fill();
+
+        ctx.fillStyle = origColor;
     }
 
-    public text(message:string = '', x: number = 0, y: number = 0, font:string = '48x serif'){
+    public draw(tris: Array<Tri>, actor?: Renderable){
+        for(let tri of tris) {
+            if (actor)
+                this.drawTri(tri, actor.color);
+            else
+                this.drawTri(tri);
+        }
+    }
+
+    public textSize(message:string = '', x: number = 0, y: number = 0, font:string = '12px serif'){
         let ctx = this.getContext();
         ctx.font = font;
+        return ctx.measureText(message);
+    }
+
+    public text(message:string = '', x: number = 0, y: number = 0, font:string = '12px serif', color?: Colour){
+        let ctx = this.getContext();
+        let origColor = ctx.fillStyle;
+
+        if(color == undefined)
+            color = new Colour();
+
+        ctx.fillStyle = Color.colorStr(color);
+
+        ctx.font = font;
         ctx.fillText(message, x, y);
+
+        ctx.fillStyle = origColor;
+        return ctx;
     }
 
     private static clear(canvas: HTMLCanvasElement){

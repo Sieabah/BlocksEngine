@@ -11,6 +11,10 @@ class Colour {
         this.b = b;
         this.a = a;
     }
+
+    public copy(){
+        return new Colour(this.r, this.g, this.b, this.a);
+    }
 }
 
 class Color {

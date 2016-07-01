@@ -1,6 +1,7 @@
 /// <reference path="../engine/Core.ts" />
 /// <reference path="../engine/Rendering/TextActor.ts" />
 /// <reference path="../engine/Util/Mouse.ts" />
+/// <reference path="../engine/Level/Level.ts" />
 
 abstract class Game {
     engine: Core;
@@ -15,6 +16,10 @@ abstract class Game {
     getName():string{ return this.name; }
     resize():void{
         this.engine.getRenderer().resize();
+    }
+
+    protected loadLevel(level: Level){
+        level.setup(this);
     }
 
     public addActor(actor: Actor): number{

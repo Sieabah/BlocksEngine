@@ -1,4 +1,4 @@
-/// <reference path="SMath.ts" />
+/// <reference path="Math/SMath.ts" />
 
 interface SEntity {
     position: Point;

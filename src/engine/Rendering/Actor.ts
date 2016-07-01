@@ -1,7 +1,4 @@
-/// <reference path="../Util/Color.ts" />
-/// <reference path="../SMath.ts" />
-/// <reference path="Renderable.ts" />
-/// <reference path="Board.ts" />
+/// <reference path="../Include.ts" />
 
 class Actor implements Renderable{
     private tickFunc = null;
@@ -12,7 +9,7 @@ class Actor implements Renderable{
     public scale;
     public color;
 
-    constructor(bounds: Array<Point> = [],
+    constructor(bounds: Array<Tri> = [],
                 position: Point = new Point(),
                 rotation: Rotator = new Rotator(),
                 scale: number = 1,
@@ -46,17 +43,33 @@ class Actor implements Renderable{
             this.tickFunc(dtime);
     };
 
-    draw(board: Board): void{
-        let bounds: Array<Point> = [];
+    protected getScaledBounds(): Array<Tri>{
+        let bounds: Array<Tri> = [];
 
-        for(let point of this.bounds){
-            let scaledPoint: Point = new Point(point.x, point.y);
-            scaledPoint.x = scaledPoint.x * this.scale;
-            scaledPoint.y = scaledPoint.y * this.scale;
-
-            bounds.push(new Point(this.position.x+scaledPoint.x, this.position.y+scaledPoint.y));
+        for(let tri of this.bounds){
+            let stri = tri.scaled(this.scale);
+            bounds.push(stri.moved(this.position));
         }
 
-        board.draw(bounds, this);
+        return bounds;
+    }
+
+    draw(board: Board): void{
+        board.draw(this.getScaledBounds(), this);
     };
+
+    public isHit(pt: Point){
+        for(let tri of this.bounds){
+            if(SMath.PointInTri(pt, tri))
+                return true;
+        }
+
+        return false;
+    }
+
+    onClick(actor: Actor){}
+
+    onHover(actor: Actor){}
+
+    offHover(actor: Actor){}
 }

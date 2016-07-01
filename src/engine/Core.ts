@@ -1,13 +1,4 @@
-/// <reference path="Repeater.ts" />
-
-/// <reference path="SEntity.ts" />
-/// <reference path="Util/Mouse.ts" />
-
-/// <reference path="Rendering/SRender.ts" />
-/// <reference path="SAudio.ts" />
-/// <reference path="SPhysics.ts" />
-
-/// <reference path="../game/Game.ts" />
+/// <reference path="Include.ts" />
 
 class Core {
     private conf: Object;
@@ -29,6 +20,10 @@ class Core {
         this.entities = [];
 
         new Mouse();
+
+        Mouse.registerClickTrigger((x,y) => {
+            this.getRenderer().click(x,y);
+        });
 
         window.onresize = () => {this.getRenderer().resize();};
     }

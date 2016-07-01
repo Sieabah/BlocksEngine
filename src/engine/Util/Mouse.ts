@@ -3,13 +3,31 @@ class Mouse {
     public static x: number;
     public static y: number;
 
-    public mouseMove(event){
+    private static clickTriggers: Array<Function> = [];
+
+    public static mouseMove(event){
         Mouse.x = event.pageX;
         Mouse.y = event.pageY;
     }
 
+    public static mouseUp(event){
+        Mouse.x = event.pageX;
+        Mouse.y = event.pageY;
+
+        for(let trigger of Mouse.clickTriggers){
+            trigger(Mouse.x, Mouse.y);
+        }
+    }
+
+    public static registerClickTrigger(func: Function){
+        Mouse.clickTriggers.push(func);
+    }
+
     constructor(){
         if(document.onmousemove == null)
-            document.onmousemove = this.mouseMove;
+            document.onmousemove = Mouse.mouseMove;
+
+        if(document.onmouseup == null)
+            document.onmouseup = Mouse.mouseUp;
     }
 }
