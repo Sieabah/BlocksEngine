@@ -1,7 +1,4 @@
-/// <reference path="Renderable.ts" />
-/// <reference path="../Math/SMath.ts" />
-/// <reference path="../Math/Tri.ts" />
-/// <reference path="../Util/Color.ts" />
+/// <reference path="../Include.ts" />
 
 class Board {
     public resize(){
@@ -28,7 +25,9 @@ class Board {
         backdrop.style.width = String(window.innerWidth)+'px';
         backdrop.style.height = String(window.innerHeight)+'px';
         backdrop.style.backgroundColor = 'rgba(0,0,0,0.1)';
+        backdrop.style.display = 'none';
         Board.position(backdrop, '0');
+
 
         let canvas1 = document.createElement('canvas');
 
@@ -48,6 +47,26 @@ class Board {
             back: canvas2
         };
         this.pieces['backdrop'] = backdrop;
+
+        let renderer = PIXI.autoDetectRenderer(window.innerWidth, window.innerHeight, { antialias: true });
+        Board.position(renderer.view);
+        body.appendChild(renderer.view);
+
+        renderer.view.style.width = window.innerWidth + "px";
+        renderer.view.style.height = window.innerHeight + "px";
+        renderer.view.style.display = "block";
+
+        let stage = new PIXI.Container();
+        stage.interactive = true;
+
+        let graphics = new PIXI.Graphics();
+        stage.addChild(graphics);
+
+        this.pieces['pixi'] = {
+            'stage': stage,
+            'renderer': renderer,
+            'graphics': graphics
+        };
 
         this.resize();
     }
@@ -78,7 +97,7 @@ class Board {
         return this.getCanvas().getContext('2d');
     }
 
-    private drawTri(tri: Tri, color?: Colour){
+    /*private drawTri(tri: Tri, color?: Colour){
         let ctx = this.getContext();
         let origColor = ctx.fillStyle;
 
@@ -93,15 +112,15 @@ class Board {
         let tmp = points.shift();
         ctx.moveTo(tmp.x, tmp.y);
 
-        /*let textColor = new Colour(255,255,255,1);
+        /!*let textColor = new Colour(255,255,255,1);
         let x = SMath.truncate(tmp.x, 1);
         let y = SMath.truncate(tmp.y, 1);
-        this.text(x+','+y, x, y, '10px serif', textColor);*/
+        this.text(x+','+y, x, y, '10px serif', textColor);*!/
 
         for(let point of points){
-            /*let x = SMath.truncate(point.x, 1);
+            /!*let x = SMath.truncate(point.x, 1);
             let y = SMath.truncate(point.y, 1);
-            this.text(x+','+y, x, y, '10px serif', textColor);*/
+            this.text(x+','+y, x, y, '10px serif', textColor);*!/
             ctx.lineTo(point.x, point.y);
         }
 
@@ -109,6 +128,29 @@ class Board {
         ctx.fill();
 
         ctx.fillStyle = origColor;
+    }*/
+
+    private drawTri(tri: Tri, color?: Colour) {
+        let gfx = this.pieces['pixi']['graphics'];
+
+        if (color == undefined)
+            color = new Colour();
+
+        gfx.lineStyle(1, '0xFF3300', 1);
+        gfx.beginFill('0xFF3300', 1);
+
+        let points = tri.points();
+
+        let tmp = points.shift();
+        gfx.moveTo(tmp.x, tmp.y);
+
+        for (let point of points) {
+            let x = SMath.truncate(point.x, 1);
+            let y = SMath.truncate(point.y, 1);
+            gfx.lineTo(point.x, point.y);
+        }
+
+        gfx.endFill();
     }
 
     public draw(tris: Array<Tri>, actor?: Renderable){
@@ -146,23 +188,13 @@ class Board {
         canvas.getContext('2d').clearRect(0, 0, canvas.width, canvas.height);
     }
 
-    public clearFront(){
-        Board.clear(this.getCanvas('front'));
-    }
-
-    public clearBack(){
-        Board.clear(this.getCanvas('back'));
-    }
-
     public swap(){
-        let back = this.getCanvas('back');
-        let front = this.getCanvas('front');
 
-        back.style.display = 'block';
-        front.style.display = 'none';
+        this.pieces['pixi']['renderer'].render(this.pieces['pixi']['stage']);
+    }
 
-        this.setCanvas('front', back);
-        this.setCanvas('back', front);
+    public clear(){
+        this.pieces['pixi']['graphics'].clear();
     }
 
     public setBackdrop(r: number, g: number, b: number){

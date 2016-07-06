@@ -22,6 +22,10 @@ class Color {
         return 'rgba('+color.r+','+color.g+','+color.b+','+color.a+')';
     }
 
+    public static colorHex(color: {r: number, g: number, b: number, a:number}){
+        return '0x'+color.r.toString(16)+color.g.toString(16)+color.b.toString(16);
+    }
+
     public static HSVtoRGB (h, s, v) {
 
         let color: {

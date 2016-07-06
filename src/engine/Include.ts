@@ -1,3 +1,8 @@
+/// <reference path="../definitions/pixi.js.d.ts" />
+/// <reference path="../definitions/pixi-spine.js.d.ts" />
+/// <reference path="../definitions/pixi-particles.js.d.ts" />
+
+
 /// <reference path="Core.ts" />
 /// <reference path="CoreGame.ts" />
 /// <reference path="Repeater.ts" />
@@ -16,3 +21,7 @@
 /// <reference path="Level/Level.ts" />
 /// <reference path="Level/Menu.ts" />
 /// <reference path="Audio/SAudio.ts" />
+
+
+
+
