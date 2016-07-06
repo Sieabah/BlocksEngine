@@ -2,6 +2,7 @@ built
 node_modules
 src/**/*.js
 src/**/*.js.map
+!src/packages/**/*
 
 .idea
 *.iml
