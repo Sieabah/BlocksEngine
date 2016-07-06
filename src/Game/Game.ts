@@ -1,9 +1,13 @@
-/// <reference path="../engine/Include.ts" />
-/// <reference path="Levels/MainMenu.ts" />
+/// <reference path="../engine/CoreGame.ts" />
 
 class GetBlocks extends Game {
+    constructor(){
+        super('GetBlocks');
+
+        console.log('gb');
+    }
+
     public setup(){
-        this.loadLevel(new GBMainMenu());
-        //this.engine.getAudio().play('media/menuMusic.ogg', true);
+
     }
 }

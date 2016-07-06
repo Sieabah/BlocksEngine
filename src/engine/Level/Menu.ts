@@ -45,6 +45,7 @@ class Menu extends Level {
     }
 
     public setup(game: Game){
+        /*
         let middle = new Point(window.innerWidth/2, window.innerHeight/2);
 
         for(let option of this.options){
@@ -63,7 +64,7 @@ class Menu extends Level {
             };
 
             game.addActor(actor);
-        }
+        }*/
 
         super.setup(game);
     }

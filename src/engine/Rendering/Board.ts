@@ -15,6 +15,7 @@ class Board {
     }
 
     private pieces: Object = {};
+    
     constructor(){
         let bodies = document.getElementsByTagName('body');
         if(bodies.length != 1)
