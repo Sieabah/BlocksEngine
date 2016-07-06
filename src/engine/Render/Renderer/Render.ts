@@ -59,8 +59,13 @@ class SRenderer {
         body.appendChild(this.renderer().view);
     }
 
+    public gfx: PIXI.Graphics;
+
     constructor(){
         this.setup();
+
+        this.gfx = new PIXI.Graphics();
+        this.stage().addChild(this.gfx);
     }
 
     protected position (element: HTMLElement, zindex: string = '1000'): void{
@@ -71,6 +76,7 @@ class SRenderer {
     }
 
     public update(){
+
         this.renderer().render(this.stage());
     }
 }

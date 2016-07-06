@@ -1,6 +1,9 @@
 /// <reference path="../../Include.ts" />
 
 class SActorManager {
+    constructor(){
+        this._map = {};
+    }
     private _map: Object;
     private _actors: SActor[] = [];
 

@@ -84,7 +84,7 @@ class Core {
 
     run(game: Game): void{
         console.log('Core.run');
-        this.entities.beginPlay();
+        this.manager().beginPlay();
         this.name = Core.repeater(this.loop(game, this));
     }
 }

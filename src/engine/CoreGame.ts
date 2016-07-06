@@ -11,6 +11,10 @@ abstract class Game {
         this._engine = new Core();
     }
 
+    protected loadLevel(level: Level){
+        level.setup(this);
+    }
+
     public getName():string{ return this.name; }
 
     abstract setup(): void;

@@ -11,7 +11,7 @@ class Unique {
     }
     
     private mapsize: number = 13;
-    private static _map = {};
+    private static _map: string[] = [];
     private _description: string;
     private _key: string;
 
@@ -23,9 +23,11 @@ class Unique {
         this._description = description;
 
         let key = this.makeid(this.mapsize);
-        while(!(key in Unique._map)) key = this.makeid(this.mapsize);
 
-        Unique._map[key] = key;
+        while(Unique._map.indexOf(key) != -1)
+            key = this.makeid(this.mapsize);
+
+        Unique._map.push(key);
         this._key = key;
     }
 

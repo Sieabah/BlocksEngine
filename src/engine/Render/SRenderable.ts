@@ -3,11 +3,16 @@
 class SRenderable {
     private _tris: Tri[];
     protected tris(): Tri[] { return this._tris; }
+    protected bounds(tris: Tri[]) { this._tris = tris; }
 
     private _position: Point;
     protected position(): Point{ return this._position; }
-    protected setPosition(x: number = 0, y: number = 0):void{ this.setPositionByPoint(new Point(x,y)) }
-    protected setPositionByPoint(pt: Point = new Point(0,0)): void{ this._position = pt }
+    protected setPosition(x: number = 0, y: number = 0): void {
+        this.setPositionByPoint(new Point(x,y))
+    }
+    protected setPositionByPoint(pt: Point = new Point(0,0)): void {
+        this._position = pt
+    }
 
     private _rotation: Rotator;
     protected rotation(): Rotator{ return this._rotation; }
@@ -18,7 +23,7 @@ class SRenderable {
 
     private _scale: number;
     protected scale(): number { return this._scale; }
-    protected setScale(scale: number){ this._scale = scale; }
+    protected setScale(scale: number = 1){ this._scale = scale; }
 
     private _color: Colour;
     protected color(): Colour { return this._color; }
@@ -27,7 +32,7 @@ class SRenderable {
     constructor(position?: Point, rotation?: Rotator, scale?: number, color?: Colour){
         position ? this.setPositionByPoint(position) : this.setPosition();
         rotation ? this.setRotationByRotator(rotation) : this.setRotation();
-        scale ? this.setScale(scale) : this.setScale(scale);
+        scale ? this.setScale(scale) : this.setScale();
         color ? this.setColor(color) : this.setColor();
     }
 }
