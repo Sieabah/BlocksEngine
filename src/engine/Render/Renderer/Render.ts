@@ -1,8 +1,7 @@
-/// <reference path="../../../definitions/pixi.js.d.ts" />
-/// <reference path="../../../definitions/pixi-spine.js.d.ts" />
-/// <reference path="../../../definitions/pixi-particles.js.d.ts" />
+/// <reference path="../../Include.ts" />
 
 class SRenderer {
+    private debug: boolean = true;
     public resize(): void{
         /*
         this.pieces['backdrop'].style.width = String(window.innerWidth)+'px';
@@ -59,13 +58,8 @@ class SRenderer {
         body.appendChild(this.renderer().view);
     }
 
-    public gfx: PIXI.Graphics;
-
     constructor(){
         this.setup();
-
-        this.gfx = new PIXI.Graphics();
-        this.stage().addChild(this.gfx);
     }
 
     protected position (element: HTMLElement, zindex: string = '1000'): void{
@@ -75,8 +69,56 @@ class SRenderer {
         element.style.left = '0';
     }
 
-    public update(){
-
+    public update(actors?: SActor[]){
+        this.draw(actors);
         this.renderer().render(this.stage());
+        this.stage().removeChildren();
+    }
+
+    public debugtext(text: string, point: Point): PIXI.Text{
+        let txt: PIXI.Text = new PIXI.Text(
+            text+' '+point.x+','+point.y,{
+                font: '8px serif',
+                fill: '#FFFFFF'
+            });
+
+        txt.x = point.x;
+        txt.y = point.y;
+
+        return txt;
+    }
+
+    protected draw(actors: SActor[]){
+        let gfx = new PIXI.Graphics();
+        this.stage().addChild(gfx);
+
+        for(let actor of actors) {
+            let position = actor.position();
+            let scale = actor.scale();
+            let color = actor.color();
+            
+            for (let tri of actor.tris()) {
+                gfx.beginFill(color.hex(), color.a);
+
+                let points = tri.points();
+
+                for(let index in points) {
+                    if(!points.hasOwnProperty(index)) continue;
+
+                    var point: Point = points[index].scaled(scale).moved(position);
+
+                    switch(parseInt(index)){
+                        case 0:
+                            gfx.moveTo(point.x, point.y);
+                            break;
+                        default:
+                            gfx.lineTo(point.x, point.y);
+                            break;
+                    }
+                }
+
+                gfx.endFill();
+            }
+        }
     }
 }

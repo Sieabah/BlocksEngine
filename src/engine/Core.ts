@@ -78,7 +78,7 @@ class Core {
         return function(dtime: number){
             game.loop(dtime);
             engine.manager().tick(dtime);
-            engine.getRenderer().update();
+            engine.getRenderer().update(engine.manager().actors());
         }
     }
 

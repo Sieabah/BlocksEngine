@@ -4,6 +4,7 @@
 
 /// <reference path="Util/Unique.ts" />
 /// <reference path="Util/Color.ts" />
+/// <reference path="Util/StrUtil.ts" />
 /// <reference path="Util/Mouse.ts" />
 /// <reference path="Level/Level.ts" />
 /// <reference path="Level/Menu.ts" />

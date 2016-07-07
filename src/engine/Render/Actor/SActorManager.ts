@@ -26,4 +26,6 @@ class SActorManager {
             if(actor.doesTick()) actor.tick(dtime);
         }
     }
+
+    public actors(): SActor[]{ return this._actors; }
 }

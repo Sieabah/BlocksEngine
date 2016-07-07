@@ -1,3 +1,4 @@
+/// <reference path="../Include.ts" />
 
 class Colour {
     public r;
@@ -15,15 +16,35 @@ class Colour {
     public copy(){
         return new Colour(this.r, this.g, this.b, this.a);
     }
+
+    public hex(): number{
+        return Color.colorHex(this);
+    }
+
+    public toString(): string{
+        return Color.colorStr(this);
+    }
 }
 
 class Color {
-    public static colorStr(color: {r: number, g: number, b: number, a:number}){
+    public static colorStr(color: {r: number, g: number, b: number, a:number}):string {
         return 'rgba('+color.r+','+color.g+','+color.b+','+color.a+')';
     }
 
-    public static colorHex(color: {r: number, g: number, b: number, a:number}){
-        return '0x'+color.r.toString(16)+color.g.toString(16)+color.b.toString(16);
+    public static colorHex(color: {r: number, g: number, b: number, a:number}): number{
+        let colorstr = StrUtil.leftpad(color.r.toString(16),2,'0')+
+            StrUtil.leftpad(color.g.toString(16),2,'0')+
+            StrUtil.leftpad(color.b.toString(16),2,'0');
+        return parseInt('0x'+colorstr, 16);
+    }
+
+    public static random(){
+        let min = 0;
+        let max = 255;
+        let r = Math.floor(Math.random() * (max - min)) + min;
+        let g = Math.floor(Math.random() * (max - min)) + min;
+        let b = Math.floor(Math.random() * (max - min)) + min;
+        return new Colour(r,g,b,1);
     }
 
     public static HSVtoRGB (h, s, v) {
