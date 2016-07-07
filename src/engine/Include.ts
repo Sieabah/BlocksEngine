@@ -17,6 +17,7 @@
 /// <reference path="Math/Quad.ts" />
 /// <reference path="SPhysics.ts" />
 /// <reference path="Render/Actor/SActor.ts" />
+/// <reference path="Render/Actor/SActorText.ts" />
 /// <reference path="Render/Actor/SActorManager.ts" />
 /// <reference path="Render/Renderer/Render.ts" />
 /// <reference path="Render/SRenderable.ts" />

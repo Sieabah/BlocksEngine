@@ -20,4 +20,34 @@ class SActor extends SRenderable {
     public beginPlay(): void{
 
     }
+
+    public draw(stage){
+        let gfx = new PIXI.Graphics();
+        stage.addChild(gfx);
+
+        let color = this.color();
+
+        for (let tri of this.tris()) {
+            gfx.beginFill(color.hex(), color.a);
+
+            let points = tri.points();
+
+            for(let index in points) {
+                if(!points.hasOwnProperty(index)) continue;
+
+                var point: Point = points[index].scaled(this.scale()).moved(this.position());
+
+                switch(parseInt(index)){
+                    case 0:
+                        gfx.moveTo(point.x, point.y);
+                        break;
+                    default:
+                        gfx.lineTo(point.x, point.y);
+                        break;
+                }
+            }
+
+            gfx.endFill();
+        }
+    }
 }

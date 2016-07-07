@@ -89,36 +89,8 @@ class SRenderer {
     }
 
     protected draw(actors: SActor[]){
-        let gfx = new PIXI.Graphics();
-        this.stage().addChild(gfx);
-
         for(let actor of actors) {
-            let position = actor.position();
-            let scale = actor.scale();
-            let color = actor.color();
-            
-            for (let tri of actor.tris()) {
-                gfx.beginFill(color.hex(), color.a);
-
-                let points = tri.points();
-
-                for(let index in points) {
-                    if(!points.hasOwnProperty(index)) continue;
-
-                    var point: Point = points[index].scaled(scale).moved(position);
-
-                    switch(parseInt(index)){
-                        case 0:
-                            gfx.moveTo(point.x, point.y);
-                            break;
-                        default:
-                            gfx.lineTo(point.x, point.y);
-                            break;
-                    }
-                }
-
-                gfx.endFill();
-            }
+            actor.draw(this.stage());
         }
     }
 }
