@@ -21,6 +21,10 @@ class Colour {
         return Color.colorHex(this);
     }
 
+    public hexStr(): number{
+        return Color.colorHexStr(this);
+    }
+
     public toString(): string{
         return Color.colorStr(this);
     }
@@ -31,11 +35,14 @@ class Color {
         return 'rgba('+color.r+','+color.g+','+color.b+','+color.a+')';
     }
 
-    public static colorHex(color: {r: number, g: number, b: number, a:number}): number{
-        let colorstr = StrUtil.leftpad(color.r.toString(16),2,'0')+
+    public static colorHexStr(color: {r: number, g: number, b: number, a:number}){
+        return StrUtil.leftpad(color.r.toString(16),2,'0')+
             StrUtil.leftpad(color.g.toString(16),2,'0')+
             StrUtil.leftpad(color.b.toString(16),2,'0');
-        return parseInt('0x'+colorstr, 16);
+    }
+    public static colorHex(color: {r: number, g: number, b: number, a:number}): number{
+
+        return parseInt('0x'+Color.colorHexStr(color), 16);
     }
 
     public static random(){
