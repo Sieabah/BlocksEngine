@@ -4,28 +4,22 @@ import {
     Rotator
 } from 'engine/Math';
 
+import { Board } from './Board';
+import { SMath } from 'engine/Math';
+import { Colour } from 'engine/Util';
 import { Renderable } from './Renderable';
 
 export class Actor implements Renderable{
-    private tickFunc = null;
-    protected _doesTick = false;
-    public bounds;
-    public position;
-    public rotation;
-    public scale;
-    public color;
+    private tickFunc: Function = null;
+    protected _doesTick: boolean = false;
 
-    constructor(bounds: Array<Tri> = [],
-                position: Point = new Point(),
-                rotation: Rotator = new Rotator(),
-                scale: number = 1,
-                color: Colour = new Colour()){
-
-        this.bounds = bounds;
-        this.color = color;
-        this.rotation = rotation;
-        this.position = position;
-        this.scale = scale;
+    constructor(
+        public bounds: Array<Tri> = [],
+        public position: Point = new Point(),
+        public rotation: Rotator = new Rotator(),
+        public scale: number = 1,
+        public color: Colour = new Colour()
+    ){
     };
 
     public setPosition(x: number, y: number){

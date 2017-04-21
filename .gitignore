@@ -1,4 +1,3 @@
-built
 node_modules
 src/**/*.js
 src/**/*.js.map
@@ -6,3 +5,5 @@ src/**/*.js.map
 
 .idea
 *.iml
+
+public/*

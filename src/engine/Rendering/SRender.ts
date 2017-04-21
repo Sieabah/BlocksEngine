@@ -1,5 +1,6 @@
 import { Board } from './Board';
 import { Actor } from './Actor';
+import { Mouse, Color } from 'engine/Util';
 
 import {
     Point

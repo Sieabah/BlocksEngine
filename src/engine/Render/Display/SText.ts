@@ -3,17 +3,18 @@ import {
     Rotator
 } from 'engine/Math';
 
+import { Colour } from 'engine/Util';
 import { TextStyle } from './TTextStyle';
 import { SActorSpec } from '../Actor/SActorSpec';
 
 export class SText extends SActorSpec {
     private _text: string;
-    private _style: TextStyle = {
+    private _style: any = {
         font: '12px serif',
         fill: '#FFFFFF'
     };
 
-    constructor(message: string = 'EGAD', position?: Point, style: TextStyle = null,
+    constructor(message: string = 'EGAD', position?: Point, style: any = null,
                 rotation?: Rotator, scale?: number, color?: Colour){
         super(position, rotation, scale);
 

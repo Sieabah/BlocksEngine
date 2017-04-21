@@ -1,1 +1,3 @@
-import {} from './Game/Game';
+import { GetBlocks } from 'game/Game';
+
+(new GetBlocks()).run();

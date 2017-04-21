@@ -3,6 +3,7 @@ import {
     Rotator
 } from 'engine/Math';
 
+import { Colour } from 'engine/Util';
 import { SRenderable } from '../SRenderable';
 
 export class SActor extends SRenderable {

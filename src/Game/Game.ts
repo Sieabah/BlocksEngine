@@ -1,5 +1,5 @@
 import { Game } from 'engine/CoreGame';
-import { MainMenu } from './Levels/MainMenu';
+import { GBMainMenu } from './Levels';
 
 export class GetBlocks extends Game {
     public setup(){

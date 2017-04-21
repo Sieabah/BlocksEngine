@@ -1,36 +1,7 @@
-/// <reference path="../Include.ts" />
+import { Colour } from './Colour';
+import { StrUtil } from './StrUtil';
 
-class Colour {
-    public r;
-    public g;
-    public b;
-    public a;
-
-    constructor(r: number = 0, g: number = 0, b: number = 0, a: number = 1){
-        this.r = r;
-        this.g = g;
-        this.b = b;
-        this.a = a;
-    }
-
-    public copy(){
-        return new Colour(this.r, this.g, this.b, this.a);
-    }
-
-    public hex(): number{
-        return Color.colorHex(this);
-    }
-
-    public hexStr(): number{
-        return Color.colorHexStr(this);
-    }
-
-    public toString(): string{
-        return Color.colorStr(this);
-    }
-}
-
-class Color {
+export class Color {
     public static colorStr(color: {r: number, g: number, b: number, a:number}):string {
         return 'rgba('+color.r+','+color.g+','+color.b+','+color.a+')';
     }
@@ -40,8 +11,8 @@ class Color {
             StrUtil.leftpad(color.g.toString(16),2,'0')+
             StrUtil.leftpad(color.b.toString(16),2,'0');
     }
-    public static colorHex(color: {r: number, g: number, b: number, a:number}): number{
 
+    public static colorHex(color: {r: number, g: number, b: number, a:number}): number{
         return parseInt('0x'+Color.colorHexStr(color), 16);
     }
 
@@ -54,7 +25,7 @@ class Color {
         return new Colour(r,g,b,1);
     }
 
-    public static HSVtoRGB (h, s, v) {
+    public static HSVtoRGB (h: number, s: number, v: number) {
 
         let color: {
             r: number,
@@ -64,11 +35,11 @@ class Color {
             r: null, g: null, b: null
         };
 
-        var i = Math.floor(h * 6);
-        var f = h * 6 - i;
-        var p = v * (1 - s);
-        var q = v * (1 - f * s);
-        var t = v * (1 - (1 - f) * s);
+        let i = Math.floor(h * 6);
+        let f = h * 6 - i;
+        let p = v * (1 - s);
+        let q = v * (1 - f * s);
+        let t = v * (1 - (1 - f) * s);
 
         switch (i % 6)
         {

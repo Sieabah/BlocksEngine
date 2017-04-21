@@ -1,16 +1,15 @@
-
-class Mouse {
+export class Mouse {
     public static x: number;
     public static y: number;
 
     private static clickTriggers: Array<Function> = [];
 
-    public static mouseMove(event){
+    public static mouseMove(event: MouseEvent){
         Mouse.x = event.pageX;
         Mouse.y = event.pageY;
     }
 
-    public static mouseUp(event){
+    public static mouseUp(event: MouseEvent){
         Mouse.x = event.pageX;
         Mouse.y = event.pageY;
 

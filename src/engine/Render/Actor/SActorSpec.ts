@@ -3,6 +3,7 @@ import {
     Rotator
 } from 'engine/Math';
 
+import { Colour } from 'engine/Util';
 import { SActor } from './SActor';
 
 export class SActorSpec extends SActor {

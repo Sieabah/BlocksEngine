@@ -1,15 +1,18 @@
 import {
     Point,
-    Rotator
+    Rotator,
+    Quad,
+    SMath
 } from 'engine/Math';
 
 import { Actor } from './Actor';
 import { Board } from './Board';
+import { Colour } from 'engine/Util';
 
 class TextActor extends Actor {
-    private _str;
-    public font;
-    protected _width;
+    private _str: string;
+    public font: string;
+    protected _width: number;
 
     constructor(text: string='<TextActor>',
                 position: Point = new Point(),

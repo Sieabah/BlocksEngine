@@ -1,10 +1,10 @@
-class Unique {
-    private makeid(length: number)
+export class Unique {
+    private static makeid(length: number)
     {
         let text = '';
         let possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-!@#$%^&*()[]{}|\\<>,./?";
 
-        for( var i=0; i < length; i++ )
+        for( let i = 0; i < length; i++ )
             text += possible.charAt(Math.floor(Math.random() * possible.length));
 
         return text;
@@ -22,10 +22,10 @@ class Unique {
     constructor(description?: string){
         this._description = description;
 
-        let key = this.makeid(this.mapsize);
+        let key = Unique.makeid(this.mapsize);
 
         while(Unique._map.indexOf(key) != -1)
-            key = this.makeid(this.mapsize);
+            key = Unique.makeid(this.mapsize);
 
         Unique._map.push(key);
         this._key = key;

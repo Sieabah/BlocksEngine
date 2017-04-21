@@ -1,4 +1,5 @@
 import { Board } from './Board';
+import { Colour } from 'engine/Util';
 import { 
     Tri,
     Point,

@@ -4,6 +4,9 @@ import {
     SMath 
 } from 'engine/Math';
 
+import { Colour, Color } from 'engine/Util';
+import { Renderable } from './Renderable';
+
 export class Board {
     public resize(){
         this.pieces['backdrop'].style.width = String(window.innerWidth)+'px';
@@ -18,7 +21,7 @@ export class Board {
         }
     }
 
-    private pieces: Object = {};
+    private pieces: any = {};
     
     constructor(){
         let bodies = document.getElementsByTagName('body');

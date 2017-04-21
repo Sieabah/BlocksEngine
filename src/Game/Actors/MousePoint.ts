@@ -1,4 +1,11 @@
 import { SActor } from 'engine';
+import { Mouse, Colour, Color } from 'engine/Util';
+
+import {
+    Point,
+    Rotator,
+    Quad
+} from 'engine/Math';
 
 export class MousePoint extends SActor {
     constructor(){

@@ -4,6 +4,8 @@ import {
     Rotator
 } from 'engine/Math';
 
+import { Colour } from 'engine/Util';
+
 export class SRenderable {
     private _tris: Tri[];
     public tris(): Tri[] { return this._tris; }

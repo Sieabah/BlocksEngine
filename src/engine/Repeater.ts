@@ -1,6 +1,6 @@
 
 export class Repeater {
-    public static repeaters = {};
+    public static repeaters: any = {};
     constructor(){}
     public static start(name: string, func: Function, autostart?: boolean): string{
         name = name+Date.now()+''+String(Math.random()).replace('.','');

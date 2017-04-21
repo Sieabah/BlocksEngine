@@ -1,5 +1,5 @@
-class StrUtil {
-    public static leftpad(str, len, ch) {
+export class StrUtil {
+    public static leftpad(str: string, len: number, ch: any) {
         // convert `str` to `string`
         str = str + '';
 

@@ -1,4 +1,5 @@
 import { SActor } from './SActor';
+import { Unique } from 'engine/Util';
 
 export class SActorManager {
     constructor(){

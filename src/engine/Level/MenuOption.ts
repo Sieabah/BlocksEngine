@@ -19,15 +19,15 @@ export class MenuOption {
         return this.name;
     }
 
-    public activate(actor):void{
+    public activate(actor: any):void{
         this._click(actor);
     }
 
-    public hover(actor):void{
+    public hover(actor: any):void{
         this._onhover(actor);
     }
 
-    public offhover(actor):void{
+    public offhover(actor: any):void{
         this._offhover(actor);
     }
 }

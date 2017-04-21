@@ -1,14 +1,17 @@
-/// <reference path="Render/Renderer/Render.ts" />
-/// <reference path="Audio/SAudio.ts" />
-/// <reference path="SPhysics.ts" />
-/// <reference path="Render/Actor/SActorManager.ts" />
-/// <reference path="Render/Actor/SActor.ts" />
-/// <reference path="Util/Mouse.ts" />
-/// <reference path="Util/Unique.ts" />
-/// <reference path="Repeater.ts" />
+import {
+    SRenderer,
+    SActor,
+    SActorManager,
+} from './Render';
+import { Mouse } from './Util';
+import { SAudio } from './Audio';
+import { Game } from './CoreGame';
+import { Repeater } from './Repeater';
+import { SPhysics } from './SPhysics';
+
 
 export class Core {
-    private conf: Object;
+    private conf: any;
     private name: string;
     private renderer: SRenderer;
     private audio: SAudio;
@@ -49,7 +52,7 @@ export class Core {
         return {}
     }
 
-    public config(conf: Object): void{
+    public config(conf: any): void{
         for(let key in conf){
             if(!conf.hasOwnProperty(key)) continue;
 
