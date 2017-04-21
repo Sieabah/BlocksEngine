@@ -1,8 +1,6 @@
 import { Point } from 'engine/Math';
 import { SActor } from '../Actor';
 
-import 'pixi.js';
-
 export class SRenderer {
     private debug: boolean = true;
     public resize(): void{
