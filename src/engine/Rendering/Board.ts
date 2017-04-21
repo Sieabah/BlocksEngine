@@ -1,6 +1,10 @@
-/// <reference path="../Include.ts" />
+import { 
+    Tri,
+    Point, 
+    SMath 
+} from 'engine/Math';
 
-class Board {
+export class Board {
     public resize(){
         this.pieces['backdrop'].style.width = String(window.innerWidth)+'px';
         this.pieces['backdrop'].style.height = String(window.innerHeight)+'px';

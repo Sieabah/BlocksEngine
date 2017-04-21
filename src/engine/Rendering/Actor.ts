@@ -1,6 +1,12 @@
-/// <reference path="../Include.ts" />
+import {
+    Tri,
+    Point,
+    Rotator
+} from 'engine/Math';
 
-class Actor implements Renderable{
+import { Renderable } from './Renderable';
+
+export class Actor implements Renderable{
     private tickFunc = null;
     protected _doesTick = false;
     public bounds;

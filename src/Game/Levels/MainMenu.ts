@@ -1,7 +1,7 @@
-/// <reference path="../../engine/Include.ts" />
-/// <reference path="../Actors/MousePoint.ts" />
+import { Menu } from 'engine';
+import { MousePoint } from '../Actors/MousePoint';
 
-class GBMainMenu extends Menu {
+export class GBMainMenu extends Menu {
     constructor(){
         super();
     }

@@ -1,4 +1,4 @@
 
-class SPhysics {
+export class SPhysics {
     
 }

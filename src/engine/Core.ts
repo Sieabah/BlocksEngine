@@ -7,7 +7,7 @@
 /// <reference path="Util/Unique.ts" />
 /// <reference path="Repeater.ts" />
 
-class Core {
+export class Core {
     private conf: Object;
     private name: string;
     private renderer: SRenderer;

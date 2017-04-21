@@ -1,49 +1,8 @@
-/// <reference path="Tri.ts" />
-/// <reference path="Quad.ts" />
+import { Point } from './Point';
+import { Tri } from './Tri';
+import { Quad } from './Quad';
 
-class Point {
-    x: number;
-    y: number;
-    constructor(x?: number, y?: number){
-        this.x = x ? x : 0;
-        this.y = y ? y : 0;
-    }
-
-    public scaled(scale: number){
-        return new Point(this.x*scale, this.y*scale);
-    }
-
-    public scale(scale: number){
-        this.x *= scale;
-        this.y *= scale;
-
-        return this;
-    }
-
-    public move(pt: Point){
-        this.x += pt.x;
-        this.y += pt.y;
-
-        return this;
-    }
-
-    public moved(pt: Point){
-        return new Point(this.x + pt.x, this.y + pt.y);
-    }
-}
-
-class Rotator {
-    yaw: number;
-    pitch: number;
-    roll: number;
-    constructor(yaw?: number, pitch?: number, roll?: number){
-        this.yaw = yaw ? yaw : 0;
-        this.pitch = pitch ? pitch : 0;
-        this.roll = roll ? roll : 0;
-    }
-}
-
-class SMath {
+export class SMath {
     public static sign(p1: Point, p2: Point, p3: Point) {
         return (p1.x - p3.x) * (p2.y - p3.y) - (p2.x - p3.x) * (p1.y - p3.y);
     }

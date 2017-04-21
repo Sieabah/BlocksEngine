@@ -1,6 +1,9 @@
-/// <reference path="../../Include.ts" />
+import { Point } from 'engine/Math';
+import { SActor } from '../Actor';
 
-class SRenderer {
+import 'pixi.js';
+
+export class SRenderer {
     private debug: boolean = true;
     public resize(): void{
         /*
@@ -17,8 +20,8 @@ class SRenderer {
         */
     }
 
-    private _stage = null;
-    private _renderer = null;
+    private _stage: PIXI.Container = null;
+    private _renderer: PIXI.SystemRenderer = null;
 
     private registerRenderer(width: number = 1280, height: number = 720, options: Object= {}): PIXI.SystemRenderer {
         return PIXI.autoDetectRenderer(width, height, options);
@@ -78,7 +81,6 @@ class SRenderer {
     public debugtext(text: string, point: Point): PIXI.Text{
         let txt: PIXI.Text = new PIXI.Text(
             text+' '+point.x+','+point.y,{
-                font: '8px serif',
                 fill: '#FFFFFF'
             });
 

@@ -1,7 +1,7 @@
-/// <reference path="Tri.ts" />
-/// <reference path="SMath.ts" />
+import { Point } from './Point';
+import { Tri } from './Tri';
 
-class Quad{
+export class Quad{
     private _points: Array<Point> = [];
     private _tris: Array<Tri> = [];
 

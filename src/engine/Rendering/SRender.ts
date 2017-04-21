@@ -1,6 +1,11 @@
-/// <reference path="../Include.ts" />
+import { Board } from './Board';
+import { Actor } from './Actor';
 
-class SRender {
+import {
+    Point
+} from 'engine/Math';
+
+export class SRender {
     private board: Board;
     private queue: Array<Actor>;
 

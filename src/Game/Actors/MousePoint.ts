@@ -1,6 +1,6 @@
-///<reference path="../../engine/Include.ts" />
+import { SActor } from 'engine';
 
-class MousePoint extends SActor {
+export class MousePoint extends SActor {
     constructor(){
         super(new Point(window.innerWidth/2, window.innerHeight/2), new Rotator(), 5, new Colour(255,255,255,1));
         this.bounds(new Quad(new Point(1, 1), new Point(-1, 1), new Point(-1, -1), new Point(1, -1)).tris());

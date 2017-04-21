@@ -1,13 +1,19 @@
-/// <reference path="../../Include.ts" />
+import {
+    Point,
+    Rotator
+} from 'engine/Math';
 
-class SText extends SActorSpec{
+import { TextStyle } from './TTextStyle';
+import { SActorSpec } from '../Actor/SActorSpec';
+
+export class SText extends SActorSpec {
     private _text: string;
-    private _style: Object = {
+    private _style: TextStyle = {
         font: '12px serif',
         fill: '#FFFFFF'
     };
 
-    constructor(message: string = 'EGAD', position?: Point, style: Object = null,
+    constructor(message: string = 'EGAD', position?: Point, style: TextStyle = null,
                 rotation?: Rotator, scale?: number, color?: Colour){
         super(position, rotation, scale);
 
@@ -28,7 +34,7 @@ class SText extends SActorSpec{
         this._text = message;
     }
 
-    public draw(stage){
+    public draw(stage: PIXI.Container){
         let text = new PIXI.Text(this._text, this._style);
         text.x = this.position().x;
         text.y = this.position().y;

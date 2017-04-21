@@ -1,7 +1,10 @@
-/// <reference path="../Math/SMath.ts" />
-/// <reference path="Renderable.ts" />
-/// <reference path="Board.ts" />
-/// <reference path="Actor.ts" />
+import {
+    Point,
+    Rotator
+} from 'engine/Math';
+
+import { Actor } from './Actor';
+import { Board } from './Board';
 
 class TextActor extends Actor {
     private _str;

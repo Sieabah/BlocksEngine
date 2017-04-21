@@ -1,11 +1,16 @@
-/// <reference path="../../Include.ts" />
+import {
+    Point,
+    Rotator
+} from 'engine/Math';
 
-class SActorSpec extends SActor {
+import { SActor } from './SActor';
+
+export class SActorSpec extends SActor {
     constructor(position?: Point, rotation?: Rotator, scale?: number, color?: Colour){
         super(position, rotation, scale, color);
     }
 
-    private tickFunc = null;
+    private tickFunc: Function = null;
 
     public setTick(func: Function): void{
         this.tickFunc = func;

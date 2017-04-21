@@ -1,7 +1,7 @@
-/// <reference path="../engine/CoreGame.ts" />
-/// <reference path="Levels/MainMenu.ts" />
+import { Game } from 'engine/CoreGame';
+import { MainMenu } from './Levels/MainMenu';
 
-class GetBlocks extends Game {
+export class GetBlocks extends Game {
     public setup(){
         this.loadLevel(new GBMainMenu());
     }

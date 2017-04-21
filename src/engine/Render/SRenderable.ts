@@ -1,6 +1,10 @@
-/// <reference path="../Include.ts" />
+import { 
+    Tri, 
+    Point, 
+    Rotator
+} from 'engine/Math';
 
-class SRenderable {
+export class SRenderable {
     private _tris: Tri[];
     public tris(): Tri[] { return this._tris; }
     protected bounds(tris: Tri[]) { this._tris = tris; }

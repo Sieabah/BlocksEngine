@@ -1,10 +1,10 @@
-/// <reference path="../../Include.ts" />
+import { SActor } from './SActor';
 
-class SActorManager {
+export class SActorManager {
     constructor(){
         this._map = {};
     }
-    private _map: Object;
+    private _map: any;
     private _actors: SActor[] = [];
 
     public addActor(actor: SActor): string {
@@ -13,7 +13,9 @@ class SActorManager {
         return sym;
     }
 
-    public getActor(id: string): SActor { return this._actors[this._map[id]]; }
+    public getActor(id: string): SActor { 
+        return this._actors[this._map[id]]; 
+    }
 
     public beginPlay(){
         for(let actor of this._actors){
@@ -27,5 +29,7 @@ class SActorManager {
         }
     }
 
-    public actors(): SActor[]{ return this._actors; }
+    public actors(): SActor[]{ 
+        return this._actors; 
+    }
 }

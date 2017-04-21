@@ -1,7 +1,11 @@
-/// <reference path="../Renderer/Render.ts" />
-/// <reference path="../SRenderable.ts" />
+import {
+    Point,
+    Rotator
+} from 'engine/Math';
 
-class SActor extends SRenderable {
+import { SRenderable } from '../SRenderable';
+
+export class SActor extends SRenderable {
     constructor(position?: Point, rotation?: Rotator, scale?: number, color?: Colour){
         super(position, rotation, scale, color);
     }
@@ -21,7 +25,7 @@ class SActor extends SRenderable {
 
     }
 
-    public draw(stage){
+    public draw(stage: PIXI.Container){
         let gfx = new PIXI.Graphics();
         stage.addChild(gfx);
 

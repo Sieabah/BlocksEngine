@@ -1,6 +1,9 @@
 /// <reference path="Core.ts" />
 
-abstract class Game {
+import { Core } from "./Core";
+import { Level } from "./Level";
+
+export abstract class Game {
     private _engine: Core;
     public engine(): Core{ return this._engine; }
 

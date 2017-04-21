@@ -1,6 +1,6 @@
-/// <reference path="../CoreGame.ts" />
+import { Game } from '../CoreGame';
 
-class Level {
+export class Level {
     constructor(){
         
     }

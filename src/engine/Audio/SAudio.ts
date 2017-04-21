@@ -1,16 +1,6 @@
-class SAudioPlayer{
-    private player: HTMLAudioElement;
+import { SAudioPlayer } from './SAudioPlayer';
 
-    constructor(){
-        this.player = document.createElement('audio');
-    }
-
-    public getPlayer(): HTMLAudioElement{
-        return this.player;
-    }
-}
-
-class SAudio {
+export class SAudio {
     private audio: Array<SAudioPlayer>;
     constructor(){
         this.audio = [];

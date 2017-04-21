@@ -1,5 +1,5 @@
 
-class Repeater {
+export class Repeater {
     public static repeaters = {};
     constructor(){}
     public static start(name: string, func: Function, autostart?: boolean): string{

@@ -1,14 +1,12 @@
-/// <reference path="SMath.ts" />
+import { Point } from './Point';
+import { SMath } from './SMath';
 
-class Tri {
-    public v1;
-    public v2;
-    public v3;
-
-    constructor(p1: Point, p2: Point, p3: Point){
-        this.v1 = p1;
-        this.v2 = p2;
-        this.v3 = p3;
+export class Tri {
+    constructor(
+        public v1: Point, 
+        public v2: Point, 
+        public v3: Point
+        ){
     }
 
     public points(){

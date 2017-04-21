@@ -1,0 +1,22 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "target": "es5",
+
+        "noImplicitAny": true,
+        "removeComments": true,
+        "preserveConstEnums": true,
+        "sourceMap": true,
+        
+        "outFile": "built/local/built.js",
+
+        "baseUrl": "src",
+        "paths": {
+            "engine/*": "engine/*",
+            "game/*": "game/*"
+        }
+    },
+    "files": [
+        "src/main.ts"
+    ]
+}
