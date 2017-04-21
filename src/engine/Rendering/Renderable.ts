@@ -1,8 +1,11 @@
-/// <reference path="Board.ts" />
-/// <reference path="../Math/SMath.ts" />
-/// <reference path="../Math/Tri.ts" />
+import { Board } from './Board';
+import { 
+    Tri,
+    Point,
+    Rotator
+} from 'engine/Math';
 
-interface Renderable {
+export interface Renderable {
     draw(canvas: Board): void;
     bounds: Array<Tri>;
     position: Point;
