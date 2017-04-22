@@ -8,4 +8,4 @@ app.get('/', function(req, res){
 });
 
 app.use('/static', express.static('public'));
-app.listen(80);
+app.listen(3000);

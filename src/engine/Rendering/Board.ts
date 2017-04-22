@@ -8,61 +8,18 @@ import { Colour, Color } from 'engine/Util';
 import { Renderable } from './Renderable';
 
 export class Board {
-    public resize(){
-        this.pieces['backdrop'].style.width = String(window.innerWidth)+'px';
-        this.pieces['backdrop'].style.height = String(window.innerHeight)+'px';
-
-        for(let canvas in this.pieces['canvas']){
-            if(!this.pieces['canvas'].hasOwnProperty(canvas)) continue;
-            let element = this.pieces['canvas'][canvas];
-
-            element.width = window.innerWidth;
-            element.height = window.innerHeight;
-        }
-    }
-
     private pieces: any = {};
     
     constructor(){
-        let bodies = document.getElementsByTagName('body');
-        if(bodies.length != 1)
-            throw new Error('Too many or not enough body tags');
-        let body = bodies[0];
-
-        let backdrop = document.createElement('div');
-        backdrop.style.width = String(window.innerWidth)+'px';
-        backdrop.style.height = String(window.innerHeight)+'px';
-        backdrop.style.backgroundColor = 'rgba(0,0,0,0.1)';
-        backdrop.style.display = 'none';
-        Board.position(backdrop, '0');
-
-
-        let canvas1 = document.createElement('canvas');
-
-        Board.position(canvas1);
-
-        let canvas2 = document.createElement('canvas');
-
-        Board.position(canvas2);
-        canvas2.style.display = 'none';
-
-        body.innerHTML = '';
-        body.appendChild(canvas1);
-        body.appendChild(canvas2);
-        body.appendChild(backdrop);
-        this.pieces['canvas'] = {
-            front: canvas1,
-            back: canvas2
-        };
-        this.pieces['backdrop'] = backdrop;
-
         let renderer = PIXI.autoDetectRenderer(window.innerWidth, window.innerHeight, { antialias: true });
         Board.position(renderer.view);
-        body.appendChild(renderer.view);
+        document.body.appendChild(renderer.view);
 
-        renderer.view.style.width = window.innerWidth + "px";
-        renderer.view.style.height = window.innerHeight + "px";
+        renderer.autoResize = true
         renderer.view.style.display = "block";
+        renderer.view.style.position = "absolute";
+        renderer.backgroundColor = 0xFF0000;
+        renderer.resize(window.innerWidth, window.innerHeight);
 
         let stage = new PIXI.Container();
         stage.interactive = true;
@@ -71,12 +28,16 @@ export class Board {
         stage.addChild(graphics);
 
         this.pieces['pixi'] = {
-            'stage': stage,
-            'renderer': renderer,
-            'graphics': graphics
+            stage, renderer, graphics
         };
+        
+        window.onresize = () => {
+            console.log('resize');
 
-        this.resize();
+            this.pieces.renderer.view.style.height = window.innerHeight+'px';
+            this.pieces.renderer.view.style.width = window.innerWidth+'px';
+            this.pieces.renderer.resize(window.innerWidth, window.innerHeight);
+        };
     }
 
     private static position (element: HTMLElement, zindex?: string): void{

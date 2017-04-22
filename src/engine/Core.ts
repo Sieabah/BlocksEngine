@@ -30,13 +30,6 @@ export class Core {
         this.entities = new SActorManager();
 
         new Mouse();
-
-        /*
-        Mouse.registerClickTrigger((x,y) => {
-            this.getRenderer().click(x,y);
-        });
-        */
-        window.onresize = () => {this.getRenderer().resize();};
     }
 
     public getRenderer(): SRenderer{ return this.renderer; }

@@ -11,7 +11,8 @@ import { Colour } from 'engine/Util';
 
 class TextActor extends Actor {
     private _str: string;
-    public font: string;
+    public fontFamily: string;
+    public fontSize: string;
     protected _width: number;
 
     constructor(text: string='<TextActor>',
@@ -22,7 +23,10 @@ class TextActor extends Actor {
 
         super([], position, rotation, 1, color);
         this._str = text;
-        this.font = font;
+
+        let tmp = this.fontFamily.split(' ');
+        this.fontSize = tmp[0];
+        this.fontFamily = tmp[1];
     };
 
     public setText(str: string){
@@ -30,7 +34,7 @@ class TextActor extends Actor {
     };
 
     public height(){
-        return parseFloat(this.font.split(' ')[0]);
+        return parseFloat(this.fontSize);
     }
 
     public width(){
@@ -47,8 +51,8 @@ class TextActor extends Actor {
     }
 
     draw(board: Board): void{
-        board.text(this._str, this.position.x, this.position.y, this.font, this.color);
-        this._width = board.textSize(this._str, this.position.x, this.position.y, this.font).width;
+        board.text(this._str, this.position.x, this.position.y, this.fontFamily, this.color);
+        this._width = board.textSize(this._str, this.position.x, this.position.y, this.fontFamily).width;
     };
 
     public isHit(pt: Point): boolean{

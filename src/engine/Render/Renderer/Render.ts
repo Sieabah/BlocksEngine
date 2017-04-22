@@ -3,25 +3,11 @@ import { SActor } from '../Actor';
 
 export class SRenderer {
     private debug: boolean = true;
-    public resize(): void{
-        /*
-        this.pieces['backdrop'].style.width = String(window.innerWidth)+'px';
-        this.pieces['backdrop'].style.height = String(window.innerHeight)+'px';
-
-        for(let canvas in this.pieces['canvas']){
-            if(!this.pieces['canvas'].hasOwnProperty(canvas)) continue;
-            let element = this.pieces['canvas'][canvas];
-
-            element.width = window.innerWidth;
-            element.height = window.innerHeight;
-        }
-        */
-    }
 
     private _stage: PIXI.Container = null;
     private _renderer: PIXI.SystemRenderer = null;
 
-    private registerRenderer(width: number = 1280, height: number = 720, options: Object= {}): PIXI.SystemRenderer {
+    private registerRenderer(width: number = 1280, height: number = 720, options: any = {}): PIXI.SystemRenderer {
         return PIXI.autoDetectRenderer(width, height, options);
     }
 
@@ -48,15 +34,17 @@ export class SRenderer {
         let body = bodies[0];
         body.innerHTML = '';
 
-        this._renderer = this.registerRenderer(window.innerWidth, window.innerHeight, {antialias: true});
+        this._renderer = this.registerRenderer(window.innerWidth, window.innerHeight, { antialias: true });
         this._stage = this.registerStage();
 
-        this.renderer().view.style.width = window.innerWidth + "px";
-        this.renderer().view.style.height = window.innerHeight + "px";
+        this.renderer().view.style.width = "100%";
+        this.renderer().view.style.height = "100%";
         this.renderer().view.style.display = "block";
 
         this.position(this.renderer().view);
         body.appendChild(this.renderer().view);
+
+        window.onresize = () => this.renderer().resize(window.innerWidth, window.innerHeight);
     }
 
     constructor(){

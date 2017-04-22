@@ -11,6 +11,7 @@
   },
   "devDependencies": {
     "@types/pixi.js": "^4.4.3",
+    "awesome-typescript-loader": "^3.1.2",
     "eslint": "^3.19.0",
     "express": "^4.15.2",
     "gulp": "^3.9.1",
@@ -19,11 +20,11 @@
     "gulp-uglify": "^1.5.4",
     "gulp-watch": "^4.3.6",
     "pixi.js": "^4.5.0",
-    "systemjs": "^0.20.12",
-    "typescript": "^2.2.2"
+    "typescript": "^2.2.2",
+    "webpack": "^2.4.1"
   },
   "scripts": {
-    "prebuild": "gulp system",
-    "build": "tsc"
+    "start": "node test-server.js",
+    "build": "webpack"
   }
 }

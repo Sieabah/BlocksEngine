@@ -32,10 +32,6 @@ export class SRender {
         return this.queue[actor];
     }
 
-    public resize(){
-        this.getBoard().resize();
-    }
-
     public click(x: number, y: number){
         let pos = new Point(x, y);
 

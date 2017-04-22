@@ -1,4 +1,5 @@
 export type TextStyle = {
-    font: string,
+    fontFamily: string,
+    fontSize: string,
     fill: string
 }

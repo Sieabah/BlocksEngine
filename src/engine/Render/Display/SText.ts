@@ -10,7 +10,8 @@ import { SActorSpec } from '../Actor/SActorSpec';
 export class SText extends SActorSpec {
     private _text: string;
     private _style: any = {
-        font: '12px serif',
+        fontFamily: 'serif',
+        fontSize: '12px',
         fill: '#FFFFFF'
     };
 
