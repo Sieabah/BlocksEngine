@@ -1,5 +1,5 @@
 import { Point } from 'engine/Math';
-import { SActor } from '../Actor';
+import { SActor } from 'engine/Actor';
 
 export class SRenderer {
     private debug: boolean = true;
@@ -26,14 +26,6 @@ export class SRenderer {
     }
 
     protected setup(){
-        let bodies: NodeListOf<HTMLBodyElement> = document.getElementsByTagName('body');
-
-        if(bodies.length < 1)
-            throw new Error('Cannot find body!');
-
-        let body = bodies[0];
-        body.innerHTML = '';
-
         this._renderer = this.registerRenderer(window.innerWidth, window.innerHeight, { antialias: true });
         this._stage = this.registerStage();
 
@@ -42,7 +34,7 @@ export class SRenderer {
         this.renderer().view.style.display = "block";
 
         this.position(this.renderer().view);
-        body.appendChild(this.renderer().view);
+        document.body.appendChild(this.renderer().view);
 
         window.onresize = () => this.renderer().resize(window.innerWidth, window.innerHeight);
     }

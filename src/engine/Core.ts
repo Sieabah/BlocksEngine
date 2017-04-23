@@ -1,8 +1,5 @@
-import {
-    SRenderer,
-    SActor,
-    SActorManager,
-} from './Render';
+import { SActor, SActorManager } from './Actor';
+import { SRenderer } from './Render';
 import { Mouse } from './Util';
 import { SAudio } from './Audio';
 import { Game } from './CoreGame';

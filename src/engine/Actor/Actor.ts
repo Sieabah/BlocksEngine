@@ -1,13 +1,12 @@
 import {
     Tri,
     Point,
-    Rotator
+    Rotator,
+    SMath
 } from 'engine/Math';
 
-import { Board } from './Board';
-import { SMath } from 'engine/Math';
+import { Board, Renderable } from 'engine/Render';
 import { Colour } from 'engine/Util';
-import { Renderable } from './Renderable';
 
 export class Actor implements Renderable{
     private tickFunc: Function = null;

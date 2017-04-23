@@ -1,5 +1,6 @@
-export * from './Actor';
-export * from './Display';
-export * from './Renderer';
-
+export * from './Render';
 export * from './SRenderable';
+export * from './Board';
+export * from './Renderable';
+export * from './SRender';
+export * from './TextActor';

@@ -5,9 +5,10 @@ import {
     SMath
 } from 'engine/Math';
 
-import { Actor } from './Actor';
-import { Board } from './Board';
+import { Actor } from 'engine/Actor';
 import { Colour } from 'engine/Util';
+
+import { Board } from './Board';
 
 class TextActor extends Actor {
     private _str: string;

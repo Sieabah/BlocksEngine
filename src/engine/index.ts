@@ -1,8 +1,9 @@
+export * from './Actor';
 export * from './Audio';
 export * from './Level';
 export * from './Math';
 export * from './Render';
-export * from './Rendering';
+export * from './Text';
 export * from './Util';
 
 export * from './Core';

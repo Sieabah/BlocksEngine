@@ -4,7 +4,7 @@ import {
 } from 'engine/Math';
 
 import { Colour } from 'engine/Util';
-import { SRenderable } from '../SRenderable';
+import { SRenderable } from 'engine/Render';
 
 export class SActor extends SRenderable {
     constructor(position?: Point, rotation?: Rotator, scale?: number, color?: Colour){

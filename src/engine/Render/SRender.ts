@@ -1,5 +1,5 @@
 import { Board } from './Board';
-import { Actor } from './Actor';
+import { Actor } from 'engine/Actor';
 import { Mouse, Color } from 'engine/Util';
 
 import {

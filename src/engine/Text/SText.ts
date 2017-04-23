@@ -3,9 +3,9 @@ import {
     Rotator
 } from 'engine/Math';
 
+import { SActorSpec } from 'engine/Actor';
 import { Colour } from 'engine/Util';
 import { TextStyle } from './TTextStyle';
-import { SActorSpec } from '../Actor/SActorSpec';
 
 export class SText extends SActorSpec {
     private _text: string;
@@ -28,8 +28,6 @@ export class SText extends SActorSpec {
 
         if(color)
             this._style['fill'] = '#'+color.hexStr();
-
-        console.log(this._style);
     }
 
     public setText(message: string): void {
