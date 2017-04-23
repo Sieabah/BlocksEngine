@@ -1,0 +1,25 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "target": "es5",
+        "moduleResolution": "node",
+
+        "lib": [ "es2016", "dom" ],
+
+        "noImplicitAny": true,
+        "removeComments": true,
+        "preserveConstEnums": true,
+        "sourceMap": true,
+        
+        "outFile": "./public/game.js",
+
+        "baseUrl": "src",
+        "paths": {
+            "engine/*": [ "engine/*" ],
+            "game/*": [ "game/*" ]
+        }
+    },
+    "files": [
+        "src/main.ts"
+    ]
+}

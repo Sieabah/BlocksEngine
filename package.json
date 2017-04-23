@@ -3,11 +3,28 @@
   "version": "1.0.0",
   "description": "Dumb game",
   "author": "Sieabah",
-  "license": "",
+  "license": "MIT",
   "dependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "https://bitbucket.org/cryecss/getblocks2"
+  },
   "devDependencies": {
+    "@types/pixi.js": "^4.4.3",
+    "awesome-typescript-loader": "^3.1.2",
+    "eslint": "^3.19.0",
+    "express": "^4.15.2",
     "gulp": "^3.9.1",
+    "gulp-concat": "^2.6.0",
     "gulp-typescript": "^2.13.5",
-    "gulp-watch": "^4.3.6"
+    "gulp-uglify": "^1.5.4",
+    "gulp-watch": "^4.3.6",
+    "pixi.js": "^4.5.0",
+    "typescript": "^2.2.2",
+    "webpack": "^2.4.1"
+  },
+  "scripts": {
+    "start": "node test-server.js",
+    "build": "webpack"
   }
 }

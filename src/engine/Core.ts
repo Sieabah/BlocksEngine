@@ -1,45 +1,48 @@
-/// <reference path="Repeater.ts" />
+import { SActor, SActorManager } from './Actor';
+import { SRenderer } from './Render';
+import { Mouse } from './Util';
+import { SAudio } from './Audio';
+import { Game } from './CoreGame';
+import { Repeater } from './Repeater';
+import { SPhysics } from './SPhysics';
 
-/// <reference path="SEntity.ts" />
 
-/// <reference path="SRender.ts" />
-/// <reference path="SAudio.ts" />
-/// <reference path="SPhysics.ts" />
-
-/// <reference path="../game/Game.ts" />
-
-class Core {
-    private conf: Object;
+export class Core {
+    private conf: any;
     private name: string;
-    private renderer: SRender;
+    private renderer: SRenderer;
     private audio: SAudio;
     private physics: SPhysics;
 
-    private entities: Array<SEntity>;
+    private entities: SActorManager;
 
     constructor(conf?: Object){
-        console.log('Core');
         this.conf = Core.defaultConfig();
         if(conf != undefined) this.config(conf);
 
-        this.renderer = new SRender();
+        this.renderer = new SRenderer();
         this.audio = new SAudio();
 
-        this.entities = [];
+        this.entities = new SActorManager();
+
+        new Mouse();
     }
 
-    public getRenderer(){ return this.renderer; }
-    public getPhysics(){ return this.physics; }
-    public getAudio(){ return this.audio; }
+    public getRenderer(): SRenderer{ return this.renderer; }
+    public getPhysics(): SPhysics{ return this.physics; }
+    public getAudio(): SAudio{ return this.audio; }
+    public manager(): SActorManager{ return this.entities; }
+
+    public getActor(actor: string): SActor{
+        return this.entities.getActor(actor);
+    }
 
     public static defaultConfig(): Object{
-        return {
-            fps: 30
-        }
+        return {}
     }
 
-    public config(conf: Object): void{
-        for(var key in conf){
+    public config(conf: any): void{
+        for(let key in conf){
             if(!conf.hasOwnProperty(key)) continue;
 
             this.setConfValue(key, conf[key]);
@@ -59,20 +62,20 @@ class Core {
         return this.conf[key];
     }
 
-    private repeater(func: Function, rate: number): string{
-        return Repeater.start('core', func, function(){ return 1000/rate;}, true);
+    private static repeater(func: Function): string{
+        return Repeater.start('core', func, true);
     }
 
     private loop(game: Game, engine: Core): Function{
         return function(dtime: number){
             game.loop(dtime);
-            engine.getRenderer().update();
+            engine.manager().tick(dtime);
+            engine.getRenderer().update(engine.manager().actors());
         }
     }
 
     run(game: Game): void{
-        console.log('Core.run');
-        this.name = this.repeater(this.loop(game, this), this.getConfValue('fps'));
-        console.log(this.name);
+        this.manager().beginPlay();
+        this.name = Core.repeater(this.loop(game, this));
     }
 }

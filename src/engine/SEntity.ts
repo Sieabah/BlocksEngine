@@ -1,6 +1,6 @@
-/// <reference path="SMath.ts" />
+import { Point } from './Math';
 
-interface SEntity {
+export interface SEntity {
     position: Point;
     name: string;
 }
