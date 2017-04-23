@@ -19,16 +19,6 @@ export class GBMainMenu extends Menu {
     }
 
     public setup(game: Game){
-        /*this.options = [
-            new MenuOption('Play', () => {
-                this.play(game);
-            }, (actor) => {
-                actor.color = new Colour(255,0,255);
-            }, (actor) => {
-                actor.color = new Colour(255,255,255);
-            })
-        ];*/
-
         game.engine().manager().addActor(new MousePoint());
 
         let fps: SText = new SText('fps', new Point(10,10));
@@ -47,7 +37,5 @@ export class GBMainMenu extends Menu {
         game.engine().manager().addActor(text);
         
         super.setup(game);
-
-        this.play(game);
     }
 }
