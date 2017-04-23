@@ -21,7 +21,8 @@ module.exports = {
 
   entry: {
       main: path.join(__dirname, 'src', 'main.ts'),
-      vendor: path.join(__dirname, 'src', 'vendor.ts')
+      vendor: path.join(__dirname, 'src', 'vendor.ts'),
+      polyfills: path.join(__dirname, 'src', 'polyfills.ts')
   },
 
   output: {
