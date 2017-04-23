@@ -1,5 +1,3 @@
-/// <reference path="Core.ts" />
-
 import { Core } from "./Core";
 import { Level } from "./Level";
 
@@ -8,6 +6,7 @@ export abstract class Game {
     public engine(): Core{ return this._engine; }
 
     private name: string = '';
+    private _level: Level = null;
 
     constructor(name: string = ''){
         this.name = name;
@@ -15,16 +14,18 @@ export abstract class Game {
     }
 
     protected loadLevel(level: Level){
+        this._level = level;
         level.setup(this);
     }
 
-    public getName():string{ return this.name; }
+    public getName(): string { return this.name; }
 
     abstract setup(): void;
 
     run(){
         this.setup();
         this.engine().run(this);
+        this._level
     }
 
     public loop(dtime: number): void{}

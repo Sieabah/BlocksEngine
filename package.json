@@ -10,16 +10,21 @@
     "url": "https://bitbucket.org/cryecss/getblocks2"
   },
   "devDependencies": {
+    "@types/howler": "^2.0.2",
+    "@types/node": "^7.0.13",
     "@types/pixi.js": "^4.4.3",
     "awesome-typescript-loader": "^3.1.2",
     "eslint": "^3.19.0",
     "express": "^4.15.2",
+    "file-loader": "^0.11.1",
     "gulp": "^3.9.1",
     "gulp-concat": "^2.6.0",
     "gulp-typescript": "^2.13.5",
     "gulp-uglify": "^1.5.4",
     "gulp-watch": "^4.3.6",
+    "howler": "^2.0.3",
     "pixi.js": "^4.5.0",
+    "rxjs": "^5.3.0",
     "typescript": "^2.2.2",
     "webpack": "^2.4.1"
   },

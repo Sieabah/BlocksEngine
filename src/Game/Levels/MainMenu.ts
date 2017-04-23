@@ -15,7 +15,7 @@ export class GBMainMenu extends Menu {
     }
 
     public play(game: Game){
-        game.engine().getAudio().play('media/menuMusic.ogg');
+        game.engine().getAudio().play(require('assets/menuMusic.ogg'));
     }
 
     public setup(game: Game){
@@ -47,5 +47,7 @@ export class GBMainMenu extends Menu {
         game.engine().manager().addActor(text);
         
         super.setup(game);
+
+        this.play(game);
     }
 }

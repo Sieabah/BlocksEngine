@@ -1,6 +1,6 @@
 {
     "compilerOptions": {
-        "module": "commonjs",
+        "module": "node",
         "target": "es5",
         "moduleResolution": "node",
 
@@ -15,6 +15,7 @@
 
         "baseUrl": "src",
         "paths": {
+            "assets/*": [ "assets/*" ],
             "engine/*": [ "engine/*" ],
             "game/*": [ "game/*" ]
         }

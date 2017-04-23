@@ -5,25 +5,21 @@ export class SAudio {
     constructor(){
         this.audio = [];
     }
-    private static createAudio(){
-        return new SAudioPlayer();
-    }
 
     private load_sound(path: string, loop:boolean=false) {
-        let player = SAudio.createAudio();
-
-        let audio = player.getPlayer();
-
-        audio.src = path;
-        audio.loop = loop;
-        audio.load();
+        let player = new SAudioPlayer(path, loop);
+        
+        player.getPlayer().load();
 
         return player;
     }
 
     public play(path: string, loop:boolean=false){
         let player = this.load_sound(path, loop);
+
         player.getPlayer().play();
         this.audio.push(player);
+
+        return player;
     }
 }

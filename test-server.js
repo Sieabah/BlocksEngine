@@ -7,5 +7,5 @@ app.get('/', function(req, res){
     res.sendFile(path.resolve('./local.html'));
 });
 
-app.use('/static', express.static('public'));
+app.use('/', express.static('public'));
 app.listen(3000);

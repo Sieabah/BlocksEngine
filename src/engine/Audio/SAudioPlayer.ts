@@ -1,11 +1,13 @@
-export class SAudioPlayer{
-    private player: HTMLAudioElement;
+export class SAudioPlayer {
+    private player: Howl;
 
-    constructor(){
-        this.player = document.createElement('audio');
+    constructor(src: string, loop: boolean){
+        this.player = new Howl({
+            src, loop
+        });
     }
 
-    public getPlayer(): HTMLAudioElement{
+    public getPlayer(): Howl{
         return this.player;
     }
 }

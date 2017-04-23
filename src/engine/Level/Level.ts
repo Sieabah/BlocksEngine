@@ -6,6 +6,6 @@ export class Level {
     }
 
     public setup(game: Game){
-
+        
     }
 }
