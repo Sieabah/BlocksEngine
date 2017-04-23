@@ -25,7 +25,7 @@ export abstract class Game {
     run(){
         this.setup();
         this.engine().run(this);
-        this._level
+        this._level.onBeginPlay(this);
     }
 
     public loop(dtime: number): void{}

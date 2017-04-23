@@ -1,11 +1,7 @@
-import { Game } from '../CoreGame';
+import { Game } from 'engine';
 
-export class Level {
-    constructor(){
-        
-    }
+export abstract class Level {
+    abstract setup(game: Game): void;
 
-    public setup(game: Game){
-        
-    }
+    abstract onBeginPlay(game: Game): void;
 }

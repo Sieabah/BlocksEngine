@@ -14,13 +14,13 @@ export class GBMainMenu extends Menu {
         super();
     }
 
-    public play(game: Game){
+    public onBeginPlay(game: Game): void{
         game.engine().getAudio().play(require('assets/menuMusic.ogg'));
     }
 
     private _mouse = new Mouse();
 
-    public setup(game: Game){
+    public setup(game: Game): void{
         game.engine().manager().addActor(new MousePoint());
 
         let fps: SText = new SText('fps', new Point(10,10));
@@ -38,8 +38,6 @@ export class GBMainMenu extends Menu {
             //console.log(this, this.x, this.y);
             text.setText([this._mouse.x,this._mouse.y].join(', '))
         });
-
-        console.log(this);
 
         game.engine().manager().addActor(text);
         

@@ -4,7 +4,7 @@ const express = require('express'),
 const app = express();
 
 app.get('/', function(req, res){
-    res.sendFile(path.resolve('./local.html'));
+    res.sendFile(path.resolve('./index.html'));
 });
 
 app.use('/', express.static('public'));
