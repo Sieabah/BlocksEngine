@@ -8,6 +8,7 @@ export class SRenderer {
     private _renderer: PIXI.SystemRenderer = null;
 
     private registerRenderer(width: number = 1280, height: number = 720, options: any = {}): PIXI.SystemRenderer {
+        PIXI.utils.skipHello();
         return PIXI.autoDetectRenderer(width, height, options);
     }
 

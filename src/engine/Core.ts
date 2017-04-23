@@ -17,7 +17,6 @@ export class Core {
     private entities: SActorManager;
 
     constructor(conf?: Object){
-        console.log('Core');
         this.conf = Core.defaultConfig();
         if(conf != undefined) this.config(conf);
 
@@ -76,7 +75,6 @@ export class Core {
     }
 
     run(game: Game): void{
-        console.log('Core.run');
         this.manager().beginPlay();
         this.name = Core.repeater(this.loop(game, this));
     }
