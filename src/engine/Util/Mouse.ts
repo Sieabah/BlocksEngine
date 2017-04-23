@@ -1,32 +1,37 @@
+import { Observable, Observer, Subject } from 'rxjs';
+
 export class Mouse {
-    public static x: number;
-    public static y: number;
+    private static _mouseMove: Subject<MouseEvent> = null;
+    private static _mouseClick: Subject<MouseEvent> = null;
 
-    private static clickTriggers: Array<Function> = [];
+    private static createSubjects(){
+        Mouse._mouseMove = new Subject<MouseEvent>();
+        Mouse._mouseClick = new Subject<MouseEvent>();
 
-    public static mouseMove(event: MouseEvent){
-        Mouse.x = event.pageX;
-        Mouse.y = event.pageY;
+        document.onmouseup = (ev: MouseEvent) => Mouse._mouseClick.next(ev);
+        document.onmousemove = (ev: MouseEvent) => Mouse._mouseMove.next(ev);
     }
 
-    public static mouseUp(event: MouseEvent){
-        Mouse.x = event.pageX;
-        Mouse.y = event.pageY;
+    public static onMove(): Observable<MouseEvent>{
+        if(Mouse._mouseMove == null)
+            Mouse.createSubjects();
 
-        for(let trigger of Mouse.clickTriggers){
-            trigger(Mouse.x, Mouse.y);
-        }
+        return Mouse._mouseMove;
     }
 
-    public static registerClickTrigger(func: Function){
-        Mouse.clickTriggers.push(func);
+    public static onClick(): Observable<MouseEvent>{
+        if(Mouse._mouseMove == null)
+            Mouse.createSubjects();
+
+        return Mouse._mouseClick;
     }
 
+    public x: number;
+    public y: number;
     constructor(){
-        if(document.onmousemove == null)
-            document.onmousemove = Mouse.mouseMove;
-
-        if(document.onmouseup == null)
-            document.onmouseup = Mouse.mouseUp;
+        Mouse.onMove().subscribe((ev: MouseEvent) => {
+            this.x = ev.pageX;
+            this.y = ev.pageY;
+        })
     }
 }

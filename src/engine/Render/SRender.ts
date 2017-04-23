@@ -42,27 +42,9 @@ export class SRender {
     }
 
     update(dtime: number){
-        let offset = Math.floor(Date.now()/50);
-        offset = Math.abs(Math.sin(offset*(Math.PI/180)));
-        let color = Color.HSVtoRGB(offset,1,1);
-        this.board.setBackdrop(color.r, color.g, color.b);
-
-        let pos = new Point(Mouse.x, Mouse.y);
-
-        this.board.clear();
-
         for(let actor of this.queue){
             if(actor.doesTick())
                 actor.tick(dtime);
-
-            if(actor.isHit(pos))
-                actor.onHover(actor);
-            else
-                actor.offHover(actor);
-
-            actor.draw(this.getBoard())
         }
-
-        this.board.swap();
     }
 }

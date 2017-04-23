@@ -18,6 +18,8 @@ export class GBMainMenu extends Menu {
         game.engine().getAudio().play(require('assets/menuMusic.ogg'));
     }
 
+    private _mouse = new Mouse();
+
     public setup(game: Game){
         game.engine().manager().addActor(new MousePoint());
 
@@ -32,7 +34,12 @@ export class GBMainMenu extends Menu {
         game.engine().manager().addActor(ms);
 
         let text: SText = new SText('mouse', new Point(10,40));
-        text.setTick((dtime: number) => text.setText(String(Mouse.x)+', '+String(Mouse.y)));
+        text.setTick((dtime: number) => {
+            //console.log(this, this.x, this.y);
+            text.setText([this._mouse.x,this._mouse.y].join(', '))
+        });
+
+        console.log(this);
 
         game.engine().manager().addActor(text);
         
