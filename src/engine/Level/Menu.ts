@@ -2,7 +2,7 @@ import { Level } from './Level';
 import { MenuOption } from './MenuOption';
 import { Game } from '../CoreGame';
 
-export class Menu extends Level {
+export abstract class Menu extends Level {
     protected options: Array<MenuOption>;
 
     constructor(){
@@ -32,7 +32,5 @@ export class Menu extends Level {
 
             game.addActor(actor);
         }*/
-
-        super.setup(game);
     }
 }
