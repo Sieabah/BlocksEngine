@@ -1,11 +1,12 @@
-const express = require('express'),
-    path = require('path');
+const express = require('express');
 
 const app = express();
 
-app.get('/', function(req, res){
-    res.sendFile(path.resolve('./index.html'));
-});
+app.set('view engine', 'pug');
 
 app.use('/', express.static('public'));
+app.get('/', function(req, res){
+  res.render('index', { version: Date.now() });
+});
+
 app.listen(3000);
