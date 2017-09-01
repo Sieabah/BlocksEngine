@@ -15,10 +15,10 @@ export class Board {
         Board.position(renderer.view);
         document.body.appendChild(renderer.view);
 
-        renderer.autoResize = true
+        renderer.autoResize = true;
         renderer.view.style.display = "block";
         renderer.view.style.position = "absolute";
-        renderer.backgroundColor = 0xFF0000;
+        renderer.view.style.backgroundColor = '0xFF0000';
         renderer.resize(window.innerWidth, window.innerHeight);
 
         let stage = new PIXI.Container();
