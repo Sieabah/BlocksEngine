@@ -8,7 +8,6 @@ import {
 import { Board, Renderable } from 'engine/Render';
 import { Colour } from 'engine/Util';
 
-export class Actor implements Renderable{
 export class Actor implements Renderable {
     private tickFunc: Function = null;
     protected _doesTick: boolean = false;
