@@ -4,7 +4,11 @@
   "description": "Dumb game",
   "author": "Sieabah",
   "license": "MIT",
-  "dependencies": {},
+  "dependencies": {
+    "keyboardjs": "^2.3.4",
+    "keycode": "^2.1.9",
+    "user-input": "^1.5.0"
+  },
   "repository": {
     "type": "git",
     "url": "https://bitbucket.org/cryecss/getblocks2"

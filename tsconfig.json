@@ -1,6 +1,6 @@
 {
     "compilerOptions": {
-        "module": "node",
+        "module": "es6",
         "target": "es5",
         "moduleResolution": "node",
 
@@ -12,9 +12,7 @@
 
         "baseUrl": "src",
         "paths": {
-            "assets/*": [ "assets/*" ],
-            "engine/*": [ "engine/*" ],
-            "game/*": [ "game/*" ]
+            "Engine/*": [ "Engine/*" ]
         }
     },
     "files": [

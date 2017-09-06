@@ -5,6 +5,8 @@ import {
     SMath
 } from 'engine/Math';
 
+import { Vec2 } from 'alfador';
+
 import { Board, Renderable } from 'engine/Render';
 import { Colour } from 'engine/Util';
 

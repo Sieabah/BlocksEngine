@@ -9,9 +9,7 @@ module.exports = {
   // Currently we need to add '.ts' to the resolve.extensions array.
   resolve: {
     alias: {
-        assets: path.join(__dirname, 'assets'),
-        game: path.join(__dirname, 'src', 'Game'),
-        engine: path.join(__dirname, 'src', 'engine')
+        Engine: path.join(__dirname, 'src', 'Engine')
     },
     extensions: ['.ts', '.tsx', '.js', '.jsx']
   },
@@ -37,8 +35,8 @@ module.exports = {
         test: /\.tsx?$/,
         loader: 'awesome-typescript-loader'
       },
-      { 
-        test: /\.(jpe?g|gif|png|svg|woff|ttf|wav|mp3|ogg)$/, 
+      {
+        test: /\.(jpe?g|gif|png|svg|woff|ttf|wav|mp3|ogg)$/,
         loader: "file-loader"
       }
     ]

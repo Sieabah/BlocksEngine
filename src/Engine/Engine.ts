@@ -1,5 +1,5 @@
 
-import { System } from "./System";
+import { System } from "./System/System";
 
 export class Engine{
   public update( dtime: number ): void {
