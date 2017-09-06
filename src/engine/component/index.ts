@@ -1,3 +1,3 @@
 export * from './Component';
 
-export * from './Components/TranslateComponent';
+export * from './components';

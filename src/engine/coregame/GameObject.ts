@@ -1,4 +1,4 @@
-import { Component, TranslateComponent } from 'Engine/Component';
+import { Component, TranslateComponent } from 'engine/component';
 
 export class GameObject {
   /**
@@ -13,7 +13,7 @@ export class GameObject {
    * Get component from GameObject
    * @param {Component | Function} component Component to retrieve
    */
-  public getComponent( component: Component | Function ): Component | null {
+  public getComponent<T>( component: Component | Function ): Component | any | null {
     const name = typeof component === 'object' ? component.constructor.name : component.name;
 
     if(this.hasComponent(component))
