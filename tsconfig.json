@@ -1,21 +1,27 @@
 {
-    "compilerOptions": {
-        "module": "es6",
-        "target": "es5",
-        "moduleResolution": "node",
+  "compilerOptions": {
+    "target": "es5",
 
-        "lib": [ "es2015", "es2016", "es2017", "dom" ],
+    "module": "es6",
+    "moduleResolution": "node",
 
-        "removeComments": true,
-        "preserveConstEnums": true,
-        "sourceMap": true,
+    "lib": [ "es6", "es7", "dom" ],
 
-        "baseUrl": "src",
-        "paths": {
-            "Engine/*": [ "Engine/*" ]
-        }
-    },
-    "files": [
-        "src/main.ts"
-    ]
+    "alwaysStrict": true,
+    "removeComments": true,
+    "preserveConstEnums": true,
+    "sourceMap": true,
+    "experimentalDecorators": true,
+    "noStrictGenericChecks": true,
+
+    "baseUrl": "src",
+    "paths": {
+      "engine/*": [ "Engine/*" ],
+      "game/*": [ "game/*" ]
+    }
+  },
+  "exclude": [
+    "src/legacy/**/*",
+    "node_modules/**/*"
+  ]
 }

@@ -4,11 +4,7 @@
   "description": "Dumb game",
   "author": "Sieabah",
   "license": "MIT",
-  "dependencies": {
-    "keyboardjs": "^2.3.4",
-    "keycode": "^2.1.9",
-    "user-input": "^1.5.0"
-  },
+  "dependencies": {},
   "repository": {
     "type": "git",
     "url": "https://bitbucket.org/cryecss/getblocks2"
@@ -16,6 +12,7 @@
   "devDependencies": {
     "@types/cannon": "^0.1.0",
     "@types/howler": "^2.0.3",
+    "@types/keyboardjs": "^2.2.31",
     "@types/mathjs": "^0.0.35",
     "@types/node": "^8.0.26",
     "@types/pixi.js": "^4.5.3",
@@ -32,11 +29,14 @@
     "gulp-uglify": "^3.0.0",
     "gulp-watch": "^4.3.11",
     "howler": "^2.0.4",
+    "keyboardjs": "^2.3.4",
+    "keycode": "^2.1.9",
     "mathjs": "^3.16.3",
     "pixi.js": "^4.5.5",
     "pug": "^2.0.0-rc.3",
     "rxjs": "^5.4.3",
     "typescript": "^2.5.2",
+    "user-input": "^1.5.0",
     "webpack": "^3.5.5"
   },
   "scripts": {

@@ -9,7 +9,8 @@ module.exports = {
   // Currently we need to add '.ts' to the resolve.extensions array.
   resolve: {
     alias: {
-        Engine: path.join(__dirname, 'src', 'Engine')
+        engine: path.join(__dirname, 'src', 'engine'),
+        game: path.join(__dirname, 'src', 'game')
     },
     extensions: ['.ts', '.tsx', '.js', '.jsx']
   },

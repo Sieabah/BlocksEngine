@@ -2,7 +2,13 @@
 
 //(new GetBlocks()).run();
 
-import { GameObject } from 'Engine/CoreGame/GameObject';
-import { TranslateComponent } from 'Engine/Component';
+//import { Player } from 'game/player';
 
-const obj = new GameObject();
+//const ply = new Player();
+
+//console.log(ply);
+
+import { Game } from 'game/Game';
+
+const game = new Game();
+console.log(game);
