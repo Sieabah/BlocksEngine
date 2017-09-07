@@ -13,3 +13,4 @@
 - Physics: https://github.com/schteppe/cannon.js
 - https://www.npmjs.com/package/keycode
   - https://www.npmjs.com/package/keyboardjs
+  - https://github.com/Sieabah/Mouse
