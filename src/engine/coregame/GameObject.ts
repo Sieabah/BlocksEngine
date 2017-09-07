@@ -1,6 +1,10 @@
 import { Component, TranslateComponent } from 'engine/component';
 
 export class GameObject {
+  protected doesTick: boolean = false;
+
+  get ticks(): boolean { return this.doesTick }
+
   /**
    * Core component map
    * @private
@@ -13,7 +17,7 @@ export class GameObject {
    * Get component from GameObject
    * @param {Component | Function} component Component to retrieve
    */
-  public getComponent<T>( component: Component | Function ): Component | any | null {
+  public getComponent( component: Component | Function ): Component | any | null {
     const name = typeof component === 'object' ? component.constructor.name : component.name;
 
     if(this.hasComponent(component))

@@ -10,6 +10,7 @@
     "url": "https://bitbucket.org/cryecss/getblocks2"
   },
   "devDependencies": {
+    "@sieabah/mouse": "^1.0.0",
     "@types/cannon": "^0.1.0",
     "@types/howler": "^2.0.3",
     "@types/keyboardjs": "^2.2.31",

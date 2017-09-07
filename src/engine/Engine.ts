@@ -1,10 +1,16 @@
 
+import { Singleton } from 'engine/lib';
+
 import { System } from './system/';
 import {
   InputSystem
-} from './system/systems';
+} from './system';
 
-export class Engine {
+export type EngineOptions = {
+  input?: InputSystem
+}
+
+export class Engine extends Singleton {
   private frame: any = null;
   private _time: number = Date.now();
 
@@ -14,9 +20,8 @@ export class Engine {
    */
   public update( dtime: number ): void {
     for(const system of this._systems)
-      system.update(dtime);
-
-    document.getElementById('engineloop').innerText = `${Date.now()} dtime: ${dtime}`;
+      if(system.ticks)
+        system.update(dtime);
   }
 
   /**
@@ -68,13 +73,24 @@ export class Engine {
     this._systems.push(sys);
   }
 
+  /**
+   * Get system
+   * @param {Function} sys
+   * @returns {any}
+   */
+  public getSystem( sys: Function ): any | null {
+    for(const system of this._systems)
+      if(system.constructor === sys)
+        return system;
+
+    return null;
+  }
+
   protected _systems: Array<System> = [];
 
   constructor({ input = null }: EngineOptions = {}) {
+    super();
+
     this.add(input || new InputSystem());
   }
-}
-
-export type EngineOptions = {
-  input?: InputSystem
 }
