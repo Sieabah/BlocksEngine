@@ -1,7 +1,10 @@
-built
 node_modules
-src/**/*.js
-src/**/*.js.map
 
 .idea
 *.iml
+.vscode
+
+public/*
+
+*.log
+yarn.lock

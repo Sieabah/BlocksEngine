@@ -1,0 +1,27 @@
+{
+  "compilerOptions": {
+    "target": "es5",
+
+    "module": "es6",
+    "moduleResolution": "node",
+
+    "lib": [ "es6", "es7", "dom" ],
+
+    "alwaysStrict": true,
+    "removeComments": true,
+    "preserveConstEnums": true,
+    "sourceMap": true,
+    "experimentalDecorators": true,
+    "noStrictGenericChecks": true,
+
+    "baseUrl": "src",
+    "paths": {
+      "engine/*": [ "Engine/*" ],
+      "game/*": [ "game/*" ]
+    }
+  },
+  "exclude": [
+    "src/legacy/**/*",
+    "node_modules/**/*"
+  ]
+}

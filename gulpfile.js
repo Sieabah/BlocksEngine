@@ -1,19 +1,11 @@
 var gulp = require('gulp'),
-    ts = require('gulp-typescript'),
-    watch = require('gulp-watch');
+    concat = require('gulp-concat');
 
-gulp.task('game', function(){
-    return gulp.src('src/game/**/*.ts')
-        .pipe(ts({
-            target: 'ES5',
-            out: 'game.js'
-        }))
-        .pipe(gulp.dest('built/local'));
-});
-
-gulp.task('default', ['game'], function () {});
-
-gulp.task('watch', ['default'], function(){
-    console.log("Watching...");
-    gulp.watch('src/**/*.ts',['default']);
+gulp.task('system', function(){
+    return gulp.src([
+        require('systemjs').scriptSrc,
+        require.resolve('pixi.js')
+    ])
+        .pipe(concat('vendor.js'))
+        .pipe(gulp.dest('public'));
 });
