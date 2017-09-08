@@ -14,22 +14,20 @@ export class Player extends Actor {
     super.addComponent(new MovementComponent(translate));
   }
 
-  protected movement = {
-    up: false,
-    down: false,
-    left: false,
-    right: false
-  };
-
   public onBeginPlay(){
     const input: InputComponent = this.getComponent(InputComponent);
+    const movement: MovementComponent = this.getComponent(MovementComponent);
 
-    if(input){
-      input.keybind('w', () => {this.movement.up = true}, () => this.movement.up = false);
-      input.keybind('s', () => this.movement.down = true, () => this.movement.down = false);
-      input.keybind('a', () => this.movement.left = true, () => this.movement.left = false);
-      input.keybind('d', () => this.movement.right = true, () => this.movement.right = false);
-    }
+    const keybind = {
+      'up': ['w', () => movement.direction.up = true, () => movement.direction.up = false],
+      'down': ['s', () => movement.direction.down = true, () => movement.direction.down = false],
+      'left': ['a', () => movement.direction.left = true, () => movement.direction.left = false],
+      'right': ['d', () => movement.direction.right = true, () => movement.direction.right = false],
+      'sprint': ['shift', () => movement.run(), () => movement.walk()],
+    };
+
+    for(let bind in keybind)
+      input.keybind(keybind[bind][0], keybind[bind][1], keybind[bind][2]);
   }
 
   public onEndPlay(){
@@ -40,28 +38,20 @@ export class Player extends Actor {
   }
 
   public update(dtime: number){
+    const movement: MovementComponent = this.getComponent(MovementComponent);
     const translate: TranslateComponent = this.getComponent(TranslateComponent);
 
-    //@todo Move to MovementComponent
-    const speed = 120;
-    const movement = speed / (1000/dtime);
+    movement.update(dtime);
 
-    let newX = 0;
-    let newY = 0;
+    document.getElementById('playerInfo').innerHTML = `
+      ${(Date.now() % 2 ? '/' : '\\')} ${JSON.stringify(translate.position)} <br/>
+      <h5>Player</h5>
+      <pre>Running:${JSON.stringify(movement.state.running)}</pre>
+      <pre>${JSON.stringify(movement.state.speed.acceleration, null, ' ')}</pre>
+      <h6>Direction</h6>
+      <pre>${JSON.stringify(movement.direction, null, ' ')}</pre>
+    `;
 
-    if(this.movement.up)
-      newY -= movement;
-    if(this.movement.down)
-      newY += movement;
-
-    if(this.movement.left)
-      newX -= movement;
-    if(this.movement.right)
-      newX += movement;
-
-    translate.translate({ x: translate.position.x + newX, y: translate.position.y + newY });
-
-    document.getElementById('playerInfo').innerText = JSON.stringify(translate.position) + ' ' + (Date.now() % 2 ? '/' : '\\');
     document.getElementById('player').style.left = translate.position.x+'px';
     document.getElementById('player').style.top = translate.position.y+'px';
   }

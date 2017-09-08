@@ -4,7 +4,9 @@
   "description": "Dumb game",
   "author": "Sieabah",
   "license": "MIT",
-  "dependencies": {},
+  "dependencies": {
+    "almost-equal": "^1.1.0"
+  },
   "repository": {
     "type": "git",
     "url": "https://bitbucket.org/cryecss/getblocks2"

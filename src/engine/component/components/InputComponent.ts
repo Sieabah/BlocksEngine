@@ -1,5 +1,5 @@
 
-import { Component } from "../Component";
+import { Component } from "engine/component";
 import { TranslateComponent } from './TranslateComponent';
 import { InputSystem } from 'engine/system';
 
