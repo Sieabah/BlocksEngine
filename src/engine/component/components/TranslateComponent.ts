@@ -2,7 +2,7 @@ import { Vec3 } from 'alfador';
 import { Component } from '../Component';
 
 export class TranslateComponent extends Component {
-  protected _name: string = 'translate-component';
+  protected readonly _name: string = 'translate-component';
 
   protected _position: Vec3;
 

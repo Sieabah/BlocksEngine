@@ -1,6 +1,6 @@
 
 import { Actor } from 'engine/coregame/Actor';
-import { InputComponent, TranslateComponent } from 'engine/component';
+import { InputComponent, MovementComponent, TranslateComponent } from 'engine/component';
 import { InputSystem } from 'engine/system';
 
 export class Player extends Actor {
@@ -8,8 +8,10 @@ export class Player extends Actor {
     super();
     this.doesTick = true;
 
-    const translate = super.getComponent(TranslateComponent);
-    super.addComponent(new InputComponent(translate, input));
+    const translate: TranslateComponent = this.getComponent(TranslateComponent);
+
+    super.addComponent(new InputComponent(input));
+    super.addComponent(new MovementComponent(translate));
   }
 
   protected movement = {

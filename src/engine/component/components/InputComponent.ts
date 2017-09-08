@@ -7,9 +7,8 @@ import { Engine } from 'engine/Engine';
 import { Callback } from 'keyboardjs';
 
 export class InputComponent extends Component {
-  protected _name: string = 'input-component';
+  protected readonly _name: string = 'input-component';
 
-  protected _translate: TranslateComponent;
   protected _input: InputSystem = null;
 
   protected _binds: Array<Function> = [];
@@ -60,10 +59,9 @@ export class InputComponent extends Component {
     this.unbindAll();
   }
 
-  constructor(translateComponent: TranslateComponent, inputSystem: InputSystem){
+  constructor(inputSystem: InputSystem){
     super();
 
     this._input = inputSystem;
-    this._translate = translateComponent;
   }
 }
