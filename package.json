@@ -4,9 +4,7 @@
   "description": "Dumb game",
   "author": "Sieabah",
   "license": "MIT",
-  "dependencies": {
-    "almost-equal": "^1.1.0"
-  },
+  "dependencies": {},
   "repository": {
     "type": "git",
     "url": "https://bitbucket.org/cryecss/getblocks2"
@@ -20,6 +18,7 @@
     "@types/node": "^8.0.26",
     "@types/pixi.js": "^4.5.3",
     "alfador": "^0.6.1",
+    "almost-equal": "^1.1.0",
     "awesome-typescript-loader": "^3.2.3",
     "cannon": "^0.6.2",
     "core-js": "^2.5.1",

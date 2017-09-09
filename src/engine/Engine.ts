@@ -1,13 +1,15 @@
 
 import { Singleton } from 'engine/lib';
 
-import { System } from './system/';
+import { Render2D, System } from './system/';
 import {
   InputSystem
 } from './system';
+import {RenderSystem} from "engine/system/systems/rendering";
 
 export type EngineOptions = {
-  input?: InputSystem
+  input?: InputSystem,
+  renderer?: RenderSystem<Render2D>
 }
 
 export class Engine extends Singleton {
@@ -66,6 +68,15 @@ export class Engine extends Singleton {
   }
 
   /**
+   * Stop Engine and shutdown
+   */
+  public shutdown(): void {
+    this.stop();
+    for(const system of this._systems)
+      system.destroy();
+  }
+
+  /**
    * Add System
    * @param {System} sys
    */
@@ -88,9 +99,20 @@ export class Engine extends Singleton {
 
   protected _systems: Array<System> = [];
 
-  constructor({ input = null }: EngineOptions = {}) {
+  private _renderType: Function;
+  get RenderType(): Function { return this._renderType }
+
+  constructor({
+    input = null,
+    renderer = null
+  }: EngineOptions = {}) {
     super();
 
+    const _renderer = renderer || new Render2D();
+
+    this._renderType = _renderer.constructor;
+
     this.add(input || new InputSystem());
+    this.add(_renderer);
   }
 }

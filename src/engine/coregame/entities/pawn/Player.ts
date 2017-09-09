@@ -1,7 +1,14 @@
 
 import { Actor } from 'engine/coregame/Actor';
-import { InputComponent, MovementComponent, TranslateComponent } from 'engine/component';
+import {
+  InputComponent,
+  MovementComponent,
+  RenderComponent,
+  TranslateComponent
+} from 'engine/component';
 import { InputSystem } from 'engine/system';
+
+import { utils, loader, Sprite } from 'pixi.js';
 
 export class Player extends Actor {
   constructor(input: InputSystem){
@@ -12,6 +19,14 @@ export class Player extends Actor {
 
     super.addComponent(new InputComponent(input));
     super.addComponent(new MovementComponent(translate));
+
+    if(!utils.TextureCache[require('assets/pic.jpg')])
+      loader.add(require('assets/pic.jpg'))
+        .on('progress', () => {console.log('making progress')})
+        .on('error', () => {console.log('making progress')});
+
+    const texture = utils.TextureCache[require('assets/pic.jpg')];
+    super.addComponent((new RenderComponent(new Sprite(texture))));
   }
 
   public onBeginPlay(){
@@ -39,10 +54,9 @@ export class Player extends Actor {
 
   public update(dtime: number){
     const movement: MovementComponent = this.getComponent(MovementComponent);
-    const translate: TranslateComponent = this.getComponent(TranslateComponent);
-
     movement.update(dtime);
 
+    /*
     document.getElementById('playerInfo').innerHTML = `
       ${(Date.now() % 2 ? '/' : '\\')} ${JSON.stringify(translate.position)} <br/>
       <h5>Player</h5>
@@ -54,5 +68,6 @@ export class Player extends Actor {
 
     document.getElementById('player').style.left = translate.position.x+'px';
     document.getElementById('player').style.top = translate.position.y+'px';
+    */
   }
 }

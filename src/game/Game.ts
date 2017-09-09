@@ -1,9 +1,11 @@
 import { Engine } from 'engine/Engine';
 import { Actor } from 'engine/coregame/Actor';
 
-import { Player } from './Player';
-import { Enemy } from './Enemy';
-import { InputSystem } from 'engine/system';
+import { Player } from 'engine/coregame/entities/pawn/Player';
+import { Enemy } from 'engine/coregame/entities/pawn/Enemy';
+import { InputSystem, RenderSystem } from 'engine/system';
+
+import { RenderComponent } from "engine/component";
 
 export class Game extends Engine {
   constructor(){
@@ -14,6 +16,7 @@ export class Game extends Engine {
 
     const ai = new Enemy(this.getSystem( InputSystem ), ply);
     this.addActor(ai);
+
     super.init();
   }
 
@@ -43,14 +46,20 @@ export class Game extends Engine {
     this._data.min = this._data.min > dtime ? dtime : this._data.min;
     this._data.max = this._data.max < dtime ? dtime : this._data.max;
 
-    document.getElementById('engineloop').innerText = `${Date.now() % 2 ? '/' : '\\'} ${JSON.stringify(this._data)}`;
+    //document.getElementById('engineloop').innerText = `${Date.now() % 2 ? '/' : '\\'} ${JSON.stringify(this._data)}`;
   }
 
-  public addActor(actor: any | Object ): void{
+  public addActor(actor: any | Object ): void {
     let _actor = typeof actor === 'function' ? new actor() : actor;
 
-    if(_actor instanceof Actor)
+    if(_actor instanceof Actor) {
+      const renderMesh = _actor.getComponent(RenderComponent);
+
+      if(renderMesh)
+        this.getSystem(this.RenderType).addMesh(renderMesh);
+
       this._actors.push(actor);
+    }
     else
       throw new Error(`Tried to add actor ${actor.constructor} but is not 'Actor'`);
   }

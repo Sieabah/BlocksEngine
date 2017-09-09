@@ -9,6 +9,7 @@ module.exports = {
   // Currently we need to add '.ts' to the resolve.extensions array.
   resolve: {
     alias: {
+        assets: path.join(__dirname, 'assets'),
         engine: path.join(__dirname, 'src', 'engine'),
         game: path.join(__dirname, 'src', 'game')
     },

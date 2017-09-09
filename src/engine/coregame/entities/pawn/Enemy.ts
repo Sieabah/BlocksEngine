@@ -87,6 +87,7 @@ export class Enemy extends Player {
     const translate: TranslateComponent = this.getComponent(TranslateComponent);
     movement.update(dtime);
 
+    /*
     document.getElementById('enemyInfo').innerHTML = `
       <h5>Enemy</h5>
       ${(Date.now() % 2 ? '/' : '\\')} ${JSON.stringify(translate.position)} <br/>
@@ -101,5 +102,6 @@ export class Enemy extends Player {
 
     document.getElementById('enemy').style.left = translate.position.x+'px';
     document.getElementById('enemy').style.top = translate.position.y+'px';
+    */
   }
 }
