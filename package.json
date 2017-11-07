@@ -40,10 +40,12 @@
     "rxjs": "^5.4.3",
     "typescript": "^2.5.2",
     "user-input": "^1.5.0",
-    "webpack": "^3.5.5"
+    "webpack": "^3.5.5",
+    "webpack-dev-server": "^2.9.4"
   },
   "scripts": {
     "start": "node test-server.js",
+    "start:dev": "webpack-dev-server",
     "build": "webpack"
   }
 }
