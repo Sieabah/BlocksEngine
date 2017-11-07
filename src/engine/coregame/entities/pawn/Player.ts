@@ -1,4 +1,3 @@
-
 import { Actor } from 'engine/coregame/Actor';
 import {
   InputComponent,

@@ -14,8 +14,8 @@ export class Game extends Engine {
     const ply = new Player(this.getSystem( InputSystem ));
     this.addActor(ply);
 
-    const ai = new Enemy(this.getSystem( InputSystem ), ply);
-    this.addActor(ai);
+    //const ai = new Enemy(this.getSystem( InputSystem ), ply);
+    //this.addActor(ai);
 
     super.init();
   }
