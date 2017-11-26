@@ -90,9 +90,16 @@ export class Engine extends Singleton {
    * @returns {any}
    */
   public getSystem( sys: Function ): any | null {
+    let potential = [];
+
     for(const system of this._systems)
       if(system.constructor === sys)
         return system;
+      else if(system instanceof sys)
+        potential.push(system);
+
+    if(potential.length > 0)
+      return potential[0];
 
     return null;
   }
@@ -109,8 +116,6 @@ export class Engine extends Singleton {
     super();
 
     const _renderer = renderer || new Render2D();
-
-    this._renderType = _renderer.constructor;
 
     this.add(input || new InputSystem());
     this.add(_renderer);

@@ -34,7 +34,9 @@ export class Game extends Engine {
     min: Infinity,
     dtime: 0,
     max: 0,
+    debug_id: null
   };
+
   public update(dtime: number){
     super.update(dtime);
 
@@ -46,6 +48,12 @@ export class Game extends Engine {
     this._data.min = this._data.min > dtime ? dtime : this._data.min;
     this._data.max = this._data.max < dtime ? dtime : this._data.max;
 
+    const render = this.getSystem(RenderSystem);
+
+    render.update(dtime);
+
+    this._data.debug_id = render.debugText(this._data, this._data.debug_id);
+
     //document.getElementById('engineloop').innerText = `${Date.now() % 2 ? '/' : '\\'} ${JSON.stringify(this._data)}`;
   }
 
@@ -56,7 +64,7 @@ export class Game extends Engine {
       const renderMesh = _actor.getComponent(RenderComponent);
 
       if(renderMesh)
-        this.getSystem(this.RenderType).addMesh(renderMesh);
+        this.getSystem( RenderSystem ).addMesh(renderMesh);
 
       this._actors.push(actor);
     }

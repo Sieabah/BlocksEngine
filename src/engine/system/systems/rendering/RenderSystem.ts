@@ -1,4 +1,5 @@
 import { System } from 'engine/system';
+import { Ticks } from 'engine/lib/Ticks';
 
 export abstract class RenderSystem<T> extends System {
   protected abstract _renderer: T;

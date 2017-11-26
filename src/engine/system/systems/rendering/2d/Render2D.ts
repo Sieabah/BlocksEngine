@@ -1,6 +1,7 @@
 import { RenderSystem } from '../RenderSystem';
 import { AddElementToDom, FullscreenElement, OnScreenResize  } from 'engine/lib';
 import { RenderComponent } from "engine/component/components/rendering";
+import { Text } from 'pixi.js';
 
 import {
   Container,
@@ -64,5 +65,26 @@ export class Render2D extends RenderSystem<SystemRenderer> {
 
   public SendMessage( event: any ): void {
 
+  }
+
+  private __dbug_text: Array<Text> = [];
+
+  public debugText(obj, id){
+    if(id != null) {
+      this.__dbug_text[id].text = typeof obj === 'object' ? JSON.stringify(obj) : obj;
+    } else {
+      const text = new Text(JSON.stringify(obj),
+        {fontFamily: 'Arial', fontSize: 24, fill: 0x000000, align: 'center'}
+      );
+      text.x = 0;
+      text.y = 0;
+      id = this.__dbug_text.length;
+      this.__dbug_text.push(text);
+    }
+
+    for(const txt of this.__dbug_text)
+      this.stage.addChild(txt);
+
+    return id;
   }
 }
